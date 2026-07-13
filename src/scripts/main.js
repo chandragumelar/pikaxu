@@ -1,4 +1,5 @@
 import '../styles/tokens.css';
+import '../styles/fonts.css';
 import '../styles/base.css';
 import '../styles/sections/hero.css';
 import '../styles/sections/what-we-make.css';

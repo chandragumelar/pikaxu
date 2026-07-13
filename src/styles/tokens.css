@@ -12,7 +12,10 @@
 
   /* ---- Typography ---- */
   /* One variable family for everything; hierarchy via weight/size only. */
-  --font-display: "Manrope", system-ui, sans-serif;
+  /* "Manrope Fallback" is a locally-defined @font-face (fonts.css) with
+     ascent/descent/size-adjust tuned to Manrope's metrics, so the swap
+     from fallback to webfont doesn't shift layout. */
+  --font-display: "Manrope", "Manrope Fallback", system-ui, sans-serif;
 
   /* Weight axis range for the kinetic wordmark (driven by scroll in scroll-type.js). */
   --wght-rest: 200;   /* hero wordmark at top of document */
