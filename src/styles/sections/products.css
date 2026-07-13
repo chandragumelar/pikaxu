@@ -23,11 +23,22 @@
 .products-link {
   display: block;
   padding: var(--space-4) 0;
-  font-size: var(--text-heading);
-  color: var(--fg);
   text-decoration: none;
 }
 
-.products-link:hover {
+.products-name {
+  display: block;
+  font-size: var(--text-heading);
+  color: var(--fg);
+}
+
+.products-description {
+  display: block;
+  margin-top: var(--space-2);
+  color: var(--muted);
+  font-size: var(--text-body);
+}
+
+.products-link:hover .products-name {
   color: var(--accent);
 }
