@@ -25,9 +25,3 @@
   font-size: var(--text-lead);
   margin-top: var(--space-4);
 }
-
-/* TEMP: gives the page enough scroll height to exercise scroll-type.js
-   before sections in PR 3-6 exist. Remove once real sections land. */
-.temp-scroll-spacer {
-  height: 400vh;
-}
