@@ -1,0 +1,44 @@
+/* products.css — editorial product list, not cards.
+   All values from tokens.css. No hardcoded hex/px/font-size. */
+
+.products {
+  margin-top: var(--space-7);
+  padding: 0 var(--space-4);
+}
+
+.products-list {
+  list-style: none;
+}
+
+.products-entry {
+  border-top: var(--border-width) solid var(--border-color);
+}
+
+/* Asymmetric offset alternates by position, so it scales to N entries
+   without touching CSS when a new product is added. */
+.products-entry:nth-child(even) {
+  margin-left: var(--space-5);
+}
+
+.products-link {
+  display: block;
+  padding: var(--space-4) 0;
+  text-decoration: none;
+}
+
+.products-name {
+  display: block;
+  font-size: var(--text-heading);
+  color: var(--fg);
+}
+
+.products-description {
+  display: block;
+  margin-top: var(--space-2);
+  color: var(--muted);
+  font-size: var(--text-body);
+}
+
+.products-link:hover .products-name {
+  color: var(--accent);
+}
