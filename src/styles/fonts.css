@@ -1,0 +1,26 @@
+/* fonts.css — self-hosted Manrope variable font + metric-matched fallback.
+   Source: Manrope variable woff2, latin subset, served by Google Fonts
+   (fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSg.woff2), saved
+   locally rather than requested from Google at runtime.
+
+   Fallback overrides computed from @capsizecss/metrics (Manrope vs Arial)
+   using the same size-adjust/ascent-override/descent-override formula
+   Next.js's font system uses, so swapping from the fallback to the real
+   webfont doesn't shift layout. */
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-variable-latin.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope Fallback";
+  src: local("Arial");
+  ascent-override: 105.79%;
+  descent-override: 29.77%;
+  line-gap-override: 0%;
+  size-adjust: 100.77%;
+}
