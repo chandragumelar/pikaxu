@@ -1,0 +1,27 @@
+/* people.css — people section, typography only.
+   Aligned with products.css for one design language. No hardcoded values. */
+
+.people {
+  margin-top: var(--space-7);
+  padding: 0 var(--space-4);
+}
+
+.people-label {
+  font-size: var(--text-caption);
+  color: var(--muted);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.people-list {
+  list-style: none;
+  margin-top: var(--space-4);
+}
+
+.people-entry {
+  border-top: var(--border-width) solid var(--border-color);
+  padding: var(--space-4) 0;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--fg);
+}
