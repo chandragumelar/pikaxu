@@ -1,0 +1,31 @@
+/* footer.css — closing section: email + copyright.
+   All values from tokens.css. No hardcoded hex/px/font-size. */
+
+.site-footer {
+  margin-top: var(--space-7);
+  border-top: var(--border-width) solid var(--border-color);
+  padding: var(--space-4);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.site-footer-email {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--space-5);
+  font-size: var(--text-caption);
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.site-footer-email:hover {
+  color: var(--accent);
+}
+
+.site-footer-copyright {
+  font-size: var(--text-caption);
+  color: var(--muted);
+}
