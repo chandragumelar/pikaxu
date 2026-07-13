@@ -1,0 +1,33 @@
+/* hero.css — hero section: wordmark + tagline.
+   All values from tokens.css. No hardcoded hex/px/font-size. */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-4);
+  overflow-x: hidden;
+}
+
+.hero-wordmark {
+  font-size: var(--text-hero);
+  line-height: var(--line-tight);
+  letter-spacing: var(--tracking-tight);
+  font-variation-settings: "wght" var(--wght-rest);
+  text-transform: uppercase;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.hero-tagline {
+  color: var(--fg);
+  font-size: var(--text-lead);
+  margin-top: var(--space-4);
+}
+
+/* TEMP: gives the page enough scroll height to exercise scroll-type.js
+   before sections in PR 3-6 exist. Remove once real sections land. */
+.temp-scroll-spacer {
+  height: 400vh;
+}
