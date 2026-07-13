@@ -1,0 +1,67 @@
+/* tokens.css — SOURCE OF TRUTH for pika-xu studio website.
+   PROTECTED FILE: do not modify without explicit approval in the prompt.
+   All colors, spacing, font sizes in section files MUST reference these variables. */
+
+:root {
+  /* ---- Color ---- */
+  /* Values locked from approved Claude Design output. */
+  --bg: #0A0A0B;      /* near-black — page background */
+  --fg: #F4F3EF;      /* off-white — primary text */
+  --accent: #D7FF3D;  /* lime — borders, link hover, small accents only. NOT body/tagline text. */
+  --muted: #8A8A86;   /* gray — secondary text, labels, captions */
+
+  /* ---- Typography ---- */
+  /* One variable family for everything; hierarchy via weight/size only. */
+  --font-display: "Manrope", system-ui, sans-serif;
+
+  /* Weight axis range for the kinetic wordmark (driven by scroll in scroll-type.js). */
+  --wght-rest: 200;   /* hero wordmark at top of document */
+  --wght-full: 800;   /* hero wordmark at full scroll */
+
+  /* Static weights for non-kinetic type. */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+
+  /* Type scale — high contrast for editorial feel.
+     Hero uses clamp() for viewport-scaled, edge-to-edge sizing. */
+  --text-caption: 0.8125rem;  /* 13px — labels, eyebrows, footer meta */
+  --text-body: 1rem;          /* 16px — body copy */
+  --text-lead: 1.375rem;      /* 22px — tagline, section intros */
+  --text-heading: 2.5rem;     /* 40px — section headings */
+  --text-hero: clamp(3rem, 16vw, 20rem); /* viewport-scaled wordmark */
+
+  --line-tight: 0.92;   /* hero / large display */
+  --line-snug: 1.1;     /* headings */
+  --line-normal: 1.5;   /* body */
+
+  --tracking-tight: -0.02em;  /* large display */
+  --tracking-normal: 0;
+  --tracking-wide: 0.08em;    /* uppercase labels */
+
+  /* ---- Spacing ---- */
+  /* 4px base scale. */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 1rem;      /* 16px */
+  --space-4: 1.5rem;    /* 24px */
+  --space-5: 3rem;      /* 48px */
+  --space-6: 6rem;      /* 96px */
+  --space-7: 10rem;     /* 160px — between major sections */
+
+  /* ---- Borders & radius ---- */
+  --border-width: 1px;
+  --border-color: rgba(244, 243, 239, 0.15); /* --fg at low alpha, 1px solid */
+  --radius: 0;  /* sharp corners; single small radius token if ever needed */
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration: 300ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration: 0ms;
+  }
+}
