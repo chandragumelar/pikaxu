@@ -21,7 +21,7 @@
 .people-entry {
   border-top: var(--border-width) solid var(--border-color);
   padding: var(--space-4) 0;
-  font-size: var(--text-lead);
+  font-size: var(--text-body);
   font-weight: var(--weight-medium);
   color: var(--fg);
 }
