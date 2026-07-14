@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Typography-only favicon: lowercase "p", Manrope bold, off-white on
+       near-black. Colors hardcoded intentionally: this asset lives outside
+       src/styles/, so the tokens.css grep gate (sections/ plus scripts/)
+       doesn't apply, and a favicon must stay self-contained regardless.
+       Values match the fg (#F4F3EF) and bg (#0A0A0B) tokens in tokens.css. -->
+  <defs>
+    <style>
+      @font-face {
+        font-family: "Manrope";
+        src: url("/fonts/manrope-variable-latin.woff2") format("woff2");
+        font-weight: 700;
+      }
+      text {
+        font-family: "Manrope", system-ui, sans-serif;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <rect width="64" height="64" fill="#0A0A0B" />
+  <text x="32" y="43" font-size="40" text-anchor="middle" fill="#F4F3EF">p</text>
+</svg>
