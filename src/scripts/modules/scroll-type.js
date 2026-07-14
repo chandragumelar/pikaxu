@@ -14,7 +14,10 @@ function getScrollProgress() {
 
 function applyWeight(el, progress, range) {
   const weight = range.rest + (range.full - range.rest) * progress;
-  el.style.fontVariationSettings = `"wght" ${weight}`;
+  // Sets a custom property, not font-variation-settings directly: hero.css
+  // composes this with cursor-proximity.js's --wght-boost via clamp(), so
+  // the two modules never read-modify-write the same style property.
+  el.style.setProperty('--wght-scroll', weight);
 }
 
 function initScrollType() {

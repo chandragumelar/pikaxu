@@ -37,3 +37,8 @@ body {
   line-height: var(--line-normal);
   font-weight: var(--weight-regular);
 }
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
