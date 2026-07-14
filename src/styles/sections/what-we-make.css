@@ -4,6 +4,19 @@
 .what-we-make {
   margin-top: var(--space-7);
   padding: 0 var(--space-4);
+  /* The reveal's scale(1.15) start state visually bleeds past both edges
+     of a near-full-width line (transform-origin is center) — without
+     this, that bleed becomes real page-level horizontal scroll, exactly
+     the failure mode this file's own QA brief calls out as most fragile.
+     clip, not hidden: overflow-x: hidden with overflow-y left at its
+     default computes overflow-y to auto (CSS Overflow's visible-pairing
+     rule), which makes this element its own scroll container — and
+     animation-timeline: view() on its children then measures against
+     THAT container instead of the page, freezing the reveal entirely
+     (verified: element position kept changing on scroll, scale/opacity
+     did not, until switching to clip). clip is explicitly exempt from
+     that pairing rule. */
+  overflow-x: clip;
 }
 
 .what-we-make-line {
@@ -19,11 +32,20 @@
 @keyframes what-we-make-reveal {
   from {
     opacity: 0;
-    transform: translateY(var(--space-2));
+    transform: scale(1.15) translateY(var(--space-2));
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes what-we-make-reveal-reduced {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -36,30 +58,42 @@
     opacity: 0;
     animation: what-we-make-reveal var(--duration) var(--ease) both;
     animation-timeline: view();
-    /* Full entry-only range (0%-100%): completes purely as the element
-       crosses into view, so it doesn't depend on scroll room past it —
-       cover required scrolling further, which broke when this was the
-       last-on-page section. Widened from a narrower 0%-60% cut after the
-       hero overlap change (PR 10) pulled this section higher up the
-       page: with less distance to cross before being fully in view, the
-       narrower range left less margin for different viewport heights,
-       so a short window (e.g. DevTools docked, shrinking the viewport)
-       could catch a line still mid-transition. The full range is the
-       same one PR 3 originally proved reliable. */
-    animation-range: entry;
+    /* cover (not entry): entry alone completes as soon as the line is
+       fully on screen, which for a ~33px line happens almost immediately
+       after it crosses the bottom edge — nowhere near viewport center.
+       cover spans the line's whole transit through the viewport (bottom
+       edge to top edge), so cover 50% lands close to the line reaching
+       vertical center, per the brief. This only works because there is
+       real scroll room below (products/people/footer) for the line to
+       transit through — the earlier stuck-at-0 bug was cover depending
+       on scroll room that didn't exist because the section was last on
+       the page at the time. */
+    animation-range: cover 0% cover 50%;
   }
 
   /* Stagger via scroll-range offset, not a time delay, so it stays
      scroll-driven rather than reintroducing a magic-number duration. */
   .what-we-make-line:nth-child(2) {
-    animation-range: entry 20% entry 100%;
+    animation-range: cover 10% cover 60%;
   }
 }
 
+/* Scroll-linked opacity is kept (it's proportional to the user's own
+   scroll input, not self-propelling motion) — only the scale/translateY
+   is removed, per the brief. */
 @media (prefers-reduced-motion: reduce) {
-  .what-we-make-line {
-    animation: none;
-    opacity: 1;
-    transform: none;
+  @supports (animation-timeline: view()) {
+    .what-we-make-line {
+      animation-name: what-we-make-reveal-reduced;
+      /* var(--duration) is forced to 0ms under reduced-motion (tokens.css)
+         which, verified empirically, makes a view()-timeline animation
+         resolve instantly to opacity: 1 regardless of scroll position
+         instead of interpolating — defeating the fade this rule exists
+         for. A fixed non-zero duration sidesteps that; actual pacing here
+         is scroll-position-driven, not time-driven, so this literal
+         value doesn't control real-world timing, just avoids the
+         0ms-specific short-circuit. */
+      animation-duration: 1ms;
+    }
   }
 }
