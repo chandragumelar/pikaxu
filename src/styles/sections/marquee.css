@@ -1,0 +1,47 @@
+/* marquee.css — lime marquee between hero and what-we-make.
+   All values from tokens.css. No hardcoded hex/px/font-size. */
+
+.marquee {
+  overflow: hidden;
+  padding: var(--space-4) 0;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  color: var(--accent);
+  font-size: var(--text-lead);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  /* ~24s per loop: slow enough to read as ambient motion in the
+     background, not a ticker demanding attention. Not a token — marquee
+     loop speed isn't part of the type/spacing scale, just a tuned
+     constant for this one effect. */
+  animation: marquee-scroll 24s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.marquee-group {
+  white-space: nowrap;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Both groups hold identical repeated content, so translating by
+       exactly one group's width (50% of the two-group track) lands back
+       on a pixel-identical frame to 0% — the loop point is invisible. */
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
