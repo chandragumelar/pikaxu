@@ -6,12 +6,35 @@
   padding: 0 var(--space-4);
 }
 
+.products-label {
+  font-size: var(--text-caption);
+  color: var(--muted);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
 .products-list {
   list-style: none;
+  margin-top: var(--space-4);
+  /* CSS counter, not a manual "01"/"02" in markup: a new entry only ever
+     needs a new <li>, the number follows automatically — matches the
+     "scale to N entries without touching CSS" rule this file already
+     follows for the asymmetric offset below. */
+  counter-reset: products-count;
 }
 
 .products-entry {
-  border-top: var(--border-width) solid var(--border-color);
+  counter-increment: products-count;
+  border-top: var(--border-width) solid var(--accent);
+}
+
+.products-entry::before {
+  content: counter(products-count, decimal-leading-zero);
+  display: block;
+  margin-top: var(--space-4);
+  color: var(--accent);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-wide);
 }
 
 /* Asymmetric offset alternates by position, so it scales to N entries
@@ -22,14 +45,34 @@
 
 .products-link {
   display: block;
-  padding: var(--space-4) 0;
+  padding: 0 0 var(--space-4);
   text-decoration: none;
 }
 
 .products-name {
-  display: block;
+  position: relative;
+  display: inline-block;
   font-size: var(--text-heading);
   color: var(--fg);
+  letter-spacing: var(--tracking-normal);
+  font-variation-settings: "wght" var(--weight-regular);
+  transition:
+    color var(--duration) var(--ease),
+    letter-spacing var(--duration) var(--ease),
+    font-variation-settings var(--duration) var(--ease);
+}
+
+.products-name::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: var(--border-width);
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration) var(--ease);
 }
 
 .products-description {
@@ -39,6 +82,30 @@
   font-size: var(--text-body);
 }
 
-.products-link:hover .products-name {
-  color: var(--accent);
+/* hover: hover excludes touch — without this, some browsers require a
+   first tap just to trigger :hover state before a second tap actually
+   follows the link, which is exactly the double-tap trap the brief
+   warns about. Gated on the whole entry, not just the link, since the
+   entry number and padding are part of the same hover target. */
+@media (hover: hover) {
+  .products-entry:hover .products-name {
+    color: var(--accent);
+    letter-spacing: var(--tracking-wide);
+    font-variation-settings: "wght" var(--wght-full);
+  }
+
+  .products-entry:hover .products-name::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+  .products-entry:hover .products-name {
+    letter-spacing: var(--tracking-normal);
+    font-variation-settings: "wght" var(--weight-regular);
+  }
+
+  .products-entry:hover .products-name::after {
+    transform: scaleX(0);
+  }
 }
