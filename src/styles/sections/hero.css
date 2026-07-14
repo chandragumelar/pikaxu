@@ -2,27 +2,11 @@
    All values from tokens.css. No hardcoded hex/px/font-size. */
 
 .hero {
-  /* Content-hugging instead of min-height: 100vh centering — a centered
-     100vh hero leaves too much empty space below the wordmark for the
-     negative margin below to ever reach real glyphs, only blank padding.
-     Generous top padding keeps the "big type near the top" feel. */
+  /* Content-hugging instead of min-height: 100vh centering, so the
+     wordmark sits close to the top rather than vertically centered in a
+     full-viewport block. */
   padding: var(--space-6) var(--space-4) var(--space-4);
   overflow-x: hidden;
-  position: relative;
-  background: var(--bg);
-  /* Stacking context so the wordmark, tagline, and hint stay legible on
-     top of what-we-make's overlapped top edge, rather than the two
-     sections' text interleaving. */
-  z-index: 1;
-  /* what-we-make has its own margin-top: var(--space-7) (160px). Since the
-     overlap eats into what-we-make's first line from the TOP down, even a
-     ~32px crop removes most of the cap-height and reads as broken, not
-     stylish — verified by screenshot, not assumed. -1 * (space-7 + space-3)
-     first cancels that 160px gap exactly, then bites 16px further: visibly
-     crops the first line's ascender tips (still legible) while reading as
-     clearly deliberate rather than a rounding error. See PR description
-     for the before/after screenshots and the math. */
-  margin-bottom: calc(-1 * (var(--space-7) + var(--space-3)));
 }
 
 .hero-wordmark {
