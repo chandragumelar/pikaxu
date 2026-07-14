@@ -24,4 +24,21 @@
   font-size: var(--text-caption);
   font-weight: var(--weight-medium);
   color: var(--fg);
+  font-variation-settings: "wght" var(--weight-medium);
+  transition: font-variation-settings var(--duration) var(--ease);
+}
+
+/* hover: hover excludes touch, same reasoning as products.css — no
+   :hover state should be reachable by tap. Weight only, no letter-
+   spacing stretch: people stays calmer than products, hierarchy holds. */
+@media (hover: hover) {
+  .people-entry:hover {
+    font-variation-settings: "wght" var(--wght-full);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+  .people-entry:hover {
+    font-variation-settings: "wght" var(--weight-medium);
+  }
 }
