@@ -18,11 +18,49 @@
   min-height: var(--space-5);
   font-size: var(--text-caption);
   color: var(--muted);
+  font-variation-settings: "wght" var(--weight-regular);
   text-decoration: none;
+  transition:
+    color var(--duration) var(--ease),
+    font-variation-settings var(--duration) var(--ease);
 }
 
-.site-footer-email:hover {
+.site-footer-email::after {
+  content: "\2192";
+  display: inline-block;
+  margin-left: var(--space-2);
   color: var(--accent);
+  opacity: 0;
+  transform: translateX(calc(-1 * var(--space-2)));
+  transition:
+    opacity var(--duration) var(--ease),
+    transform var(--duration) var(--ease);
+}
+
+/* hover: hover excludes touch — without this, some browsers require a
+   first tap just to trigger :hover before a second tap actually opens
+   the mailto link, exactly the double-tap trap this DoD checks for. */
+@media (hover: hover) {
+  .site-footer-email:hover {
+    color: var(--accent);
+    font-variation-settings: "wght" var(--wght-full);
+  }
+
+  .site-footer-email:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+  .site-footer-email:hover {
+    font-variation-settings: "wght" var(--weight-regular);
+  }
+
+  .site-footer-email:hover::after {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--space-2)));
+  }
 }
 
 .site-footer-copyright {
