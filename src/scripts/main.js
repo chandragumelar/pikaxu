@@ -7,3 +7,4 @@ import '../styles/sections/products.css';
 import '../styles/sections/people.css';
 import '../styles/sections/footer.css';
 import './modules/scroll-type.js';
+import './modules/cursor-proximity.js';

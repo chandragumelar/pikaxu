@@ -1,12 +1,11 @@
-/* hero.css — hero section: wordmark + tagline.
+/* hero.css — hero section: per-letter wordmark, tagline, scroll hint.
    All values from tokens.css. No hardcoded hex/px/font-size. */
 
 .hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: var(--space-4);
+  /* Content-hugging instead of min-height: 100vh centering, so the
+     wordmark sits close to the top rather than vertically centered in a
+     full-viewport block. */
+  padding: var(--space-6) var(--space-4) var(--space-4);
   overflow-x: hidden;
 }
 
@@ -14,14 +13,55 @@
   font-size: var(--text-hero);
   line-height: var(--line-tight);
   letter-spacing: var(--tracking-tight);
-  font-variation-settings: "wght" var(--wght-rest);
   text-transform: uppercase;
   max-width: 100%;
   overflow-wrap: anywhere;
+}
+
+.hero-letter {
+  /* Scroll-driven baseline (--wght-scroll, set by scroll-type.js on this
+     element's ancestor and inherited) and cursor-proximity boost
+     (--wght-boost, set per-letter by cursor-proximity.js) are composed
+     here in CSS instead of in JS, so the two modules never read-modify-
+     write the same value and can't clobber each other. clamp() enforces
+     the Manrope axis range regardless of how large the boost gets. */
+  font-variation-settings: "wght" clamp(
+    var(--wght-rest),
+    calc(var(--wght-scroll, var(--wght-rest)) + var(--wght-boost, 0)),
+    var(--wght-full)
+  );
 }
 
 .hero-tagline {
   color: var(--fg);
   font-size: var(--text-lead);
   margin-top: var(--space-4);
+}
+
+.hero-scroll-hint {
+  color: var(--accent);
+  font-size: var(--text-caption);
+  margin-top: var(--space-5);
+  animation: hero-scroll-hint-pulse calc(var(--duration) * 3) var(--ease)
+    infinite;
+}
+
+@keyframes hero-scroll-hint-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(var(--space-1));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-hint {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }

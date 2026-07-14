@@ -5,7 +5,13 @@ description: Design tokens, motion rules, layout patterns, and responsive rules 
 
 ## Design Direction
 
-The direction is "Kinetic Editorial". Typography is the visual — there are no illustrations, no 3D, and no stock photos. The site feels alive through type motion and scroll, not through decoration. The tone is serious-professional. It must NOT look like a finance tool or a dev tool.
+The direction is "Kinetic Editorial — extreme, not safe". Typography IS the visual:
+no illustrations, no 3D, no stock photos, no glassmorphism, no particles. The site
+must feel alive and confident through type behavior, scroll, and one bold accent.
+"Clean but forgettable" is a failed outcome. Every section must have one memorable
+moment. Neo-brutalist touches are allowed: oversized type deliberately cropped by
+the viewport, hard 1px+ lime rules, bold asymmetry, exposed labels/numbers.
+The tone stays serious-professional — expressive type, restrained everything else.
 
 ## Tokens
 
@@ -32,10 +38,20 @@ Font family: Manrope (variable, weight axis 200–800). Accent usage: 1px border
 
 ## Motion Rules
 
-- CSS scroll-driven animations first; JS only where CSS cannot (font-variation on scroll).
-- Every animation must respect `prefers-reduced-motion: reduce` — disable or reduce to opacity-only.
-- No layout-shifting animations. Animate transform and opacity only.
-- No animation library. If a task seems to need one, stop and ask.
+- CSS scroll-driven animations first; vanilla JS where CSS cannot (font-variation,
+  cursor proximity). Still no animation library (no GSAP, no Framer).
+- Motion budget per section: at least one deliberate moment (reveal, scale, weight
+  shift, marquee). A section with zero motion needs a stated reason.
+- Micro-interactions on every interactive element: hover must do more than change
+  color (weight shift, letter-spacing stretch, underline draw).
+- Every animation must respect `prefers-reduced-motion: reduce` — reduce to
+  opacity-only or disable.
+- No layout-shifting animations. Animate transform, opacity, and
+  font-variation-settings only. Marquee/oversized type must not cause horizontal
+  scrollbars (overflow: hidden containers).
+- The accent (--accent lime) must appear at rest, not only on hover: permitted as
+  thick rules, marquee text, section numbers/labels, selection color. Still not
+  body/tagline text.
 
 ## Layout
 
