@@ -28,23 +28,31 @@
 }
 
 /* Progressive enhancement: browsers without animation-timeline support
-   render the lines fully visible, no fallback JS needed. */
+   (and this rule is scoped entirely inside @supports below, never on the
+   bare .what-we-make-line rule above) render the lines fully visible by
+   default, no fallback JS needed. */
 @supports (animation-timeline: view()) {
   .what-we-make-line {
     opacity: 0;
     animation: what-we-make-reveal var(--duration) var(--ease) both;
     animation-timeline: view();
-    /* entry-only range: completes purely as the element crosses into
-       view, so it doesn't depend on scroll room past it. cover 40%
-       required scrolling further, which broke on this last-on-page
-       section — nothing left to scroll, so it stalled at opacity 0. */
-    animation-range: entry 0% entry 60%;
+    /* Full entry-only range (0%-100%): completes purely as the element
+       crosses into view, so it doesn't depend on scroll room past it —
+       cover required scrolling further, which broke when this was the
+       last-on-page section. Widened from a narrower 0%-60% cut after the
+       hero overlap change (PR 10) pulled this section higher up the
+       page: with less distance to cross before being fully in view, the
+       narrower range left less margin for different viewport heights,
+       so a short window (e.g. DevTools docked, shrinking the viewport)
+       could catch a line still mid-transition. The full range is the
+       same one PR 3 originally proved reliable. */
+    animation-range: entry;
   }
 
   /* Stagger via scroll-range offset, not a time delay, so it stays
      scroll-driven rather than reintroducing a magic-number duration. */
   .what-we-make-line:nth-child(2) {
-    animation-range: entry 15% entry 75%;
+    animation-range: entry 20% entry 100%;
   }
 }
 

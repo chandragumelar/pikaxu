@@ -16,12 +16,13 @@
   z-index: 1;
   /* what-we-make has its own margin-top: var(--space-7) (160px). Since the
      overlap eats into what-we-make's first line from the TOP down, even a
-     ~16px crop removes most of the cap-height and reads as broken, not
-     stylish — verified by screenshot, not assumed. -1 * (space-7 + space-2)
-     first cancels that 160px gap exactly, then bites 8px further: just the
-     very tips of the first line's ascenders, still fully legible. See PR
-     description for the before/after screenshots and the math. */
-  margin-bottom: calc(-1 * (var(--space-7) + var(--space-2)));
+     ~32px crop removes most of the cap-height and reads as broken, not
+     stylish — verified by screenshot, not assumed. -1 * (space-7 + space-3)
+     first cancels that 160px gap exactly, then bites 16px further: visibly
+     crops the first line's ascender tips (still legible) while reading as
+     clearly deliberate rather than a rounding error. See PR description
+     for the before/after screenshots and the math. */
+  margin-bottom: calc(-1 * (var(--space-7) + var(--space-3)));
 }
 
 .hero-wordmark {
