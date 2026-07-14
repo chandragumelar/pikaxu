@@ -1,0 +1,10 @@
+# Vite's hashed asset filenames (in /assets/) are already safe to cache
+# forever by convention — a content change produces a new filename, so no
+# explicit rule is needed for them here.
+#
+# Files under /fonts/ and the favicon/og-image are NOT hashed (served at
+# a fixed path from /public), so without an explicit long max-age the
+# default/heuristic cache lifetime would be far shorter than necessary
+# for content that never changes without a manual replace.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
