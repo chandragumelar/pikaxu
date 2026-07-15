@@ -10,6 +10,10 @@ function injectIframe(swap) {
   iframe.src = DEMO_URL;
   iframe.title = 'sisa-app live demo';
   swap.replaceChildren(iframe);
+  // Placeholder padding gave the pre-click content breathing room; the
+  // embedded app needs the frame's full width instead, or it renders
+  // narrower than the frame (and narrower than the app's own design).
+  swap.classList.add('live-demo-swap--embedded');
 }
 
 function embedDemo(swap) {
