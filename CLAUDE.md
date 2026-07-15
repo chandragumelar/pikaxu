@@ -30,9 +30,9 @@ Multi-page is done via Vite `build.rollupOptions.input` with entries like `sisa/
   /scripts
     main.js         — entry, imports only
     modules/        — one JS file per behavior (e.g. scroll-type.js)
-  index.html        — index page entry
-  /sisa
-    index.html      — product page entry (one folder per product)
+index.html          — index page entry
+/sisa
+  index.html        — product page entry (one folder per product)
 /public             — static assets only (favicons, og-image)
 ```
 

@@ -1,0 +1,20 @@
+/* sisa-hero.css — product name/hero, top of the /sisa product page.
+   All values from tokens.css. No hardcoded hex/px/font-size. */
+
+.sisa-hero {
+  margin-top: var(--space-7);
+  padding: 0 var(--space-4);
+}
+
+.sisa-hero-name {
+  display: block;
+  font-size: var(--text-display);
+  color: var(--fg);
+  font-variation-settings: "wght" var(--weight-light);
+}
+
+.sisa-hero-description {
+  margin-top: var(--space-2);
+  color: var(--muted);
+  font-size: var(--text-lead);
+}

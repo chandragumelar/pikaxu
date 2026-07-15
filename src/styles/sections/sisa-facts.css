@@ -1,0 +1,22 @@
+/* sisa-facts.css — three-bullet fact list on the /sisa product page.
+   All values from tokens.css. No hardcoded hex/px/font-size. */
+
+.sisa-facts {
+  margin-top: var(--space-7);
+  padding: 0 var(--space-4);
+}
+
+.sisa-fact-list {
+  list-style: none;
+}
+
+.sisa-fact-list li {
+  margin-top: var(--space-2);
+  font-size: var(--text-body);
+  color: var(--muted);
+  line-height: var(--line-normal);
+}
+
+.sisa-fact-list li:first-child {
+  margin-top: 0;
+}
