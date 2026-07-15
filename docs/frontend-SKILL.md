@@ -5,13 +5,7 @@ description: Design tokens, motion rules, layout patterns, and responsive rules 
 
 ## Design Direction
 
-The direction is "Kinetic Editorial — extreme, not safe". Typography IS the visual:
-no illustrations, no 3D, no stock photos, no glassmorphism, no particles. The site
-must feel alive and confident through type behavior, scroll, and one bold accent.
-"Clean but forgettable" is a failed outcome. Every section must have one memorable
-moment. Neo-brutalist touches are allowed: oversized type deliberately cropped by
-the viewport, hard 1px+ lime rules, bold asymmetry, exposed labels/numbers.
-The tone stays serious-professional — expressive type, restrained everything else.
+The direction is "Kinetic Editorial". Typography is the visual — there are no illustrations, no 3D, and no stock photos. The site feels alive through type motion and scroll, not through decoration. The tone is serious-professional. It must NOT look like a finance tool or a dev tool.
 
 ## Tokens
 
@@ -38,25 +32,18 @@ Font family: Manrope (variable, weight axis 200–800). Accent usage: 1px border
 
 ## Motion Rules
 
-- CSS scroll-driven animations first; vanilla JS where CSS cannot (font-variation,
-  cursor proximity). Still no animation library (no GSAP, no Framer).
-- Motion budget per section: at least one deliberate moment (reveal, scale, weight
-  shift, marquee). A section with zero motion needs a stated reason.
-- Micro-interactions on every interactive element: hover must do more than change
-  color (weight shift, letter-spacing stretch, underline draw).
-- Every animation must respect `prefers-reduced-motion: reduce` — reduce to
-  opacity-only or disable.
-- No layout-shifting animations. Animate transform, opacity, and
-  font-variation-settings only. Marquee/oversized type must not cause horizontal
-  scrollbars (overflow: hidden containers).
-- The accent (--accent lime) must appear at rest, not only on hover: permitted as
-  thick rules, marquee text, section numbers/labels, selection color. Still not
-  body/tagline text.
+- CSS scroll-driven animations first; JS only where CSS cannot (font-variation on scroll).
+- Every animation must respect `prefers-reduced-motion: reduce` — disable or reduce to opacity-only.
+- No layout-shifting animations. Animate transform and opacity only.
+- No animation library. If a task seems to need one, stop and ask.
 
 ## Layout
 
-- Single page, five sections in order: hero, what-we-make, products, people, footer.
-- Products section: editorial list entries, not cards. Slight asymmetric offset is intentional. New products are added as new entries; the pattern must scale to N entries without redesign.
+- Index page + one page per product (`/[product-name]`).
+- Index section order: hero, marquee, what-we-make, products, people, footer.
+- Product page section order: product name/hero, demo, facts, CTA, minimal footer + link back to index.
+- Index products section: editorial list entries, not cards — name + one sentence + arrow, whole entry links to the product page. No fact lists, demos, buy buttons, or entry counters on the index. Slight asymmetric offset is intentional. New products are added as new entries; the pattern must scale to N entries without redesign.
+- Accent discipline: `--accent` is for micro-accents only (scroll hint, hover states, marquee, CTA border on product pages). Structural borders use `--border-color`. If lime appears more than a few times per viewport, it has stopped being an accent — cut.
 - Sharp corners or one small consistent radius token. 1px solid borders. No drop shadows, no glassmorphism.
 
 ## Responsive
@@ -64,12 +51,3 @@ Font family: Manrope (variable, weight axis 200–800). Accent usage: 1px border
 - Mobile-first. Test at 390px, 768px, 1440px.
 - Hero type must never cause horizontal scroll at any width.
 - Touch targets minimum 44px.
-
-## Embeds & Injected Content
-
-- JS-injected content must never cause layout shift: the container
-  must have its final dimensions before injection.
-- Third-party UI inside an iframe is contained by a 1px token border
-  only. No inner borders, no extra padding, no decoration around it.
-- All interactive elements must style :focus-visible: 1px solid
-  --accent outline with 2px offset. Never leave the browser default.

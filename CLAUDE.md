@@ -1,12 +1,15 @@
 # CLAUDE.md
 
-## Required Reading
-Before any task: read /docs/frontend-SKILL.md for any HTML/CSS/visual work,
-and run /docs/qa-SKILL.md gates before declaring done.
-
 ## Project
 
-This is the pika-xu studio website: a single-page static site whose purpose is to present the studio's identity and serve as an index of its products. It is served at the domain pika-xu.com and deployed on Cloudflare Pages.
+This is the pika-xu studio website: a static site whose purpose is to present the studio's identity and serve as an index of its products. It consists of an index page plus one page per product (`/[product-name]`, e.g. `/sisa`). It is served at the domain pika-xu.com and deployed on Cloudflare Pages.
+
+## Page types
+
+- **Index page** (`/`): pure studio index. Section order: hero, marquee, what-we-make, products, people, footer. Product entries here are name + one sentence + arrow, linking to the product page. No demos, no fact lists, no buy buttons on the index.
+- **Product page** (`/[product-name]`): one per shipped product. Section order: product name/hero, demo, facts, CTA, minimal footer + link back to index. Each product page has its own meta/og tags.
+
+Multi-page is done via Vite `build.rollupOptions.input` with entries like `sisa/index.html`. No framework, no router.
 
 ## Stack
 
@@ -27,11 +30,13 @@ This is the pika-xu studio website: a single-page static site whose purpose is t
   /scripts
     main.js         — entry, imports only
     modules/        — one JS file per behavior (e.g. scroll-type.js)
-  index.html
+  index.html        — index page entry
+  /sisa
+    index.html      — product page entry (one folder per product)
 /public             — static assets only (favicons, og-image)
 ```
 
-One section equals one CSS file, plus one JS module if that section has behavior. When asked to fix or change a feature, locate it by section name first.
+One section equals one CSS file, plus one JS module if that section has behavior. Section CSS/JS is shared across pages where the section appears on both (e.g. footer). When asked to fix or change a feature, locate it by page, then by section name.
 
 ## Hard Rules
 
