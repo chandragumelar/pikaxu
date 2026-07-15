@@ -25,7 +25,7 @@
      match the text column's spread-out three-floor height. */
   aspect-ratio: 390 / 560;
   padding: var(--space-4);
-  border: var(--border-width) solid var(--accent);
+  border: var(--border-width) solid var(--border-color);
   border-radius: var(--radius);
   text-decoration: none;
   overflow: hidden;
