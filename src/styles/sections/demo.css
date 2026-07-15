@@ -19,21 +19,13 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 100%;
-  /* Mobile: a supporting element, aspect-ratio driven (~560px tall at
-     full width). Desktop: full-height column instead — matches
-     whatever height the left column's content needs, no aspect-ratio. */
-  aspect-ratio: 390 / 560;
-  padding: var(--space-4);
+  /* Square at every width: width follows the column (fixed 32.5rem on
+     desktop via sisa-product.css's grid, fluid on mobile), height
+     derives from that — not from the left column's height (dropped
+     the old mobile-rectangle/desktop-full-height split). */
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-}
-
-@media (min-width: 1024px) {
-  .live-demo-frame {
-    aspect-ratio: auto;
-    height: 100%;
-  }
 }
 
 .live-demo-frame iframe {
@@ -42,11 +34,27 @@
   border: 0;
 }
 
-/* Stretched-link pattern: this covers the whole frame and is the
-   real no-JS/keyboard fallback target, but sits first in DOM order so
-   the visible content (and critically, .live-demo-fullscreen) paints
-   on top of it and is what actually receives the click/tap — no
-   z-index needed, just paint order. */
+/* Swap area vs. controls area: demo-embed.js only ever replaces
+   .live-demo-swap's children when it injects the iframe. Keeping
+   .live-demo-controls (the fullscreen link) as a separate sibling —
+   not nested inside swap — means it's structurally impossible for
+   the embed to wipe it out, regardless of what JS does to swap. */
+.live-demo-swap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Stretched-link pattern: this covers the swap area (including its
+   own padding, so the whole visible placeholder is one click target,
+   not just the inner content) and is the real no-JS/keyboard fallback
+   target. It sits first in DOM order so the visible content paints on
+   top of it and is what actually receives the click/tap — no z-index
+   needed, just paint order. */
 .live-demo-frame-link {
   position: absolute;
   inset: 0;
@@ -57,7 +65,7 @@
   outline-offset: 2px;
 }
 
-.live-demo-frame > * {
+.live-demo-swap > * {
   transition: opacity var(--duration) var(--ease);
 }
 
@@ -105,12 +113,14 @@
   color: var(--muted);
 }
 
-.live-demo-bottom {
+.live-demo-cta-row {
   position: relative;
+}
+
+.live-demo-controls {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
+  justify-content: flex-end;
+  padding: 0 var(--space-4) var(--space-4);
 }
 
 .live-demo-cta {
