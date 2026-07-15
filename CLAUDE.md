@@ -6,7 +6,7 @@ This is the pika-xu studio website: a static site whose purpose is to present th
 
 ## Page types
 
-- **Index page** (`/`): pure studio index. Section order: hero, marquee, what-we-make, products, people, footer. Product entries here are name + one sentence + arrow, linking to the product page. No demos, no fact lists, no buy buttons on the index.
+- **Index page** (`/`): pure studio index. Section order: hero, marquee, what-we-make, products, footer. With a single product, the products entry is centered (no offset); the asymmetric editorial list pattern returns once there are 2+ entries. Product entries here are name + one sentence + arrow, linking to the product page. No demos, no fact lists, no buy buttons on the index.
 - **Product page** (`/[product-name]`): one per shipped product. Section order: product name/hero, demo, facts, CTA, minimal footer + link back to index. Each product page has its own meta/og tags.
 
 Multi-page is done via Vite `build.rollupOptions.input` with entries like `sisa/index.html`. No framework, no router.

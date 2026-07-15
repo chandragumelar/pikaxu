@@ -17,6 +17,9 @@
      did not, until switching to clip). clip is explicitly exempt from
      that pairing rule. */
   overflow-x: clip;
+  /* Single-product index: centered composition. Purely horizontal;
+     doesn't interact with the vertical scroll-timeline reveal below. */
+  text-align: center;
 }
 
 .what-we-make-line {
@@ -64,7 +67,7 @@
        cover spans the line's whole transit through the viewport (bottom
        edge to top edge), so cover 50% lands close to the line reaching
        vertical center, per the brief. This only works because there is
-       real scroll room below (products/people/footer) for the line to
+       real scroll room below (products/footer) for the line to
        transit through — the earlier stuck-at-0 bug was cover depending
        on scroll room that didn't exist because the section was last on
        the page at the time. */

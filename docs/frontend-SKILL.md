@@ -40,9 +40,9 @@ Font family: Manrope (variable, weight axis 200–800). Accent usage: 1px border
 ## Layout
 
 - Index page + one page per product (`/[product-name]`).
-- Index section order: hero, marquee, what-we-make, products, people, footer.
+- Index section order: hero, marquee, what-we-make, products, footer.
 - Product page section order: product name/hero, demo, facts, CTA, minimal footer + link back to index.
-- Index products section: editorial list entries, not cards — name + one sentence + arrow, whole entry links to the product page. No fact lists, demos, buy buttons, or entry counters on the index. Slight asymmetric offset is intentional. New products are added as new entries; the pattern must scale to N entries without redesign. Product entries on the index include a product mark (medium scale, sized and placed per approved Claude Design output). Marks follow the palette; lime stays a micro-accent.
+- Index products section: editorial list entries, not cards — name + one sentence + arrow, whole entry links to the product page. No fact lists, demos, buy buttons, or entry counters on the index. With a single product, the entry is centered, no offset. The asymmetric offset returns once there are 2+ entries; the pattern must scale to N entries without redesign. Product entries on the index include a product mark (medium scale, sized and placed per approved Claude Design output). Marks follow the palette; lime stays a micro-accent.
 - Accent discipline: `--accent` is for micro-accents only (scroll hint, hover states, marquee, CTA border on product pages). Structural borders use `--border-color`. If lime appears more than a few times per viewport, it has stopped being an accent — cut.
 - Sharp corners or one small consistent radius token. 1px solid borders. No drop shadows, no glassmorphism.
 

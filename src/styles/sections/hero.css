@@ -7,6 +7,11 @@
      full-viewport block. */
   padding: var(--space-6) var(--space-4) var(--space-4);
   overflow-x: hidden;
+  /* Single-product index: centered composition. Neither scroll-type.js
+     (sets a --wght-scroll custom property) nor cursor-proximity.js
+     (reads live getBoundingClientRect() per letter) hardcode position,
+     so centering doesn't affect either behavior. */
+  text-align: center;
 }
 
 .hero-wordmark {
