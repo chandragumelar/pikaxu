@@ -1,39 +1,38 @@
-/* demo.css — live demo specimen frame, used on /sisa only (the
-   homepage index no longer embeds a demo per the PR 17 products
-   diet). All values from tokens.css. No hardcoded hex/px/font-size. */
+/* demo.css — live demo specimen frame, right column of the /sisa
+   spec-sheet (see sisa-product.css for the two-column grid this
+   sits in). All values from tokens.css. No hardcoded hex/font-size;
+   the dot size and demo-column divider are literal, component-
+   specific values (see sisa-product.css's header comment). */
 
-.sisa-demo {
-  margin-top: var(--space-7);
-  padding: 0 var(--space-4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.sisa-product-demo {
+  grid-area: demo;
 }
 
-.sisa-demo .live-demo-frame,
-.sisa-demo .live-demo-fullscreen {
-  width: 100%;
-  max-width: 26rem;
+@media (min-width: 1024px) {
+  .sisa-product-demo {
+    border-left: var(--border-width) solid var(--border-color);
+    padding-left: var(--space-6);
+  }
 }
 
 .live-demo-frame {
+  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 100%;
-  /* Mobile: a supporting element under a full spec sheet, shorter than
-     before (~560px at full width). Desktop: taller again (390/720) to
-     match the text column's spread-out three-floor height. */
+  /* Mobile: a supporting element, aspect-ratio driven (~560px tall at
+     full width). Desktop: full-height column instead — matches
+     whatever height the left column's content needs, no aspect-ratio. */
   aspect-ratio: 390 / 560;
   padding: var(--space-4);
-  border: var(--border-width) solid var(--border-color);
-  border-radius: var(--radius);
-  text-decoration: none;
   overflow: hidden;
 }
 
 @media (min-width: 1024px) {
   .live-demo-frame {
-    aspect-ratio: 390 / 720;
+    aspect-ratio: auto;
+    height: 100%;
   }
 }
 
@@ -43,8 +42,38 @@
   border: 0;
 }
 
-.live-demo-frame > span {
+/* Stretched-link pattern: this covers the whole frame and is the
+   real no-JS/keyboard fallback target, but sits first in DOM order so
+   the visible content (and critically, .live-demo-fullscreen) paints
+   on top of it and is what actually receives the click/tap — no
+   z-index needed, just paint order. */
+.live-demo-frame-link {
+  position: absolute;
+  inset: 0;
+}
+
+.live-demo-frame-link:focus-visible {
+  outline: var(--border-width) solid var(--accent);
+  outline-offset: 2px;
+}
+
+.live-demo-frame > * {
   transition: opacity var(--duration) var(--ease);
+}
+
+.live-demo-top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.live-demo-dot {
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
 }
 
 .live-demo-caption {
@@ -54,46 +83,67 @@
   text-transform: uppercase;
 }
 
+.live-demo-center {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-2);
+}
+
 .live-demo-name {
-  margin-top: var(--space-2);
   font-size: var(--text-heading);
   color: var(--fg);
-  font-variation-settings: "wght" var(--weight-medium);
+  font-variation-settings: "wght" var(--weight-bold);
 }
 
 .live-demo-status {
-  margin-top: var(--space-2);
   font-size: var(--text-body);
   color: var(--muted);
 }
 
-.live-demo-cta {
-  margin-top: auto;
-  font-size: var(--text-caption);
-  color: var(--fg);
-  transition: color var(--duration) var(--ease);
+.live-demo-bottom {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
 }
 
-/* hover: hover excludes touch, same reasoning as products.css — no
-   :hover state should be reachable by tap. Scoped to the frame, so
-   hovering the buy link next to it never triggers this. */
+.live-demo-cta {
+  font-size: var(--text-caption);
+  color: var(--muted);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* Touch/no-hover is the mobile-first default copy; (hover: hover)
+   swaps to the pointer-device copy, same touch-detection convention
+   used across every hover-gated interaction in this codebase. */
+.live-demo-cta--pointer {
+  display: none;
+}
+
 @media (hover: hover) {
-  .live-demo-frame:hover .live-demo-cta {
-    color: var(--accent);
+  .live-demo-cta--touch {
+    display: none;
+  }
+
+  .live-demo-cta--pointer {
+    display: inline;
   }
 }
 
-.live-demo-frame:focus-visible,
-.live-demo-fullscreen:focus-visible {
-  outline: var(--border-width) solid var(--accent);
-  outline-offset: 2px;
-}
-
 .live-demo-fullscreen {
-  display: inline-block;
-  margin-top: var(--space-4);
+  position: relative;
   font-size: var(--text-caption);
   color: var(--muted);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  text-decoration: none;
   transition: color var(--duration) var(--ease);
 }
 
@@ -101,4 +151,9 @@
   .live-demo-fullscreen:hover {
     color: var(--accent);
   }
+}
+
+.live-demo-fullscreen:focus-visible {
+  outline: var(--border-width) solid var(--accent);
+  outline-offset: 2px;
 }
