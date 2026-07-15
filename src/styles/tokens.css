@@ -33,6 +33,7 @@
   --text-body: 1rem;          /* 16px — body copy */
   --text-lead: 1.375rem;      /* 22px — tagline, section intros */
   --text-heading: 2.5rem;     /* 40px — section headings */
+  --text-display: clamp(3rem, 6.5vw, 6rem); /* products spec-sheet name */
   --text-hero: clamp(3rem, 16vw, 20rem); /* viewport-scaled wordmark */
 
   --line-tight: 0.92;   /* hero / large display */

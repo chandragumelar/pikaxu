@@ -1,0 +1,103 @@
+/* demo.css — live demo specimen frame, nested inside a products entry
+   (see products.css for the two-column entry layout this sits in).
+   All values from tokens.css. No hardcoded hex/px/font-size. */
+
+.products-demo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .products-demo {
+    width: clamp(24rem, 30vw, 26rem);
+    flex-shrink: 0;
+  }
+}
+
+.live-demo-frame {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* Mobile: a supporting element under a full spec sheet, shorter than
+     before (~560px at full width). Desktop: taller again (390/720) to
+     match the text column's spread-out three-floor height. */
+  aspect-ratio: 390 / 560;
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--accent);
+  border-radius: var(--radius);
+  text-decoration: none;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .live-demo-frame {
+    aspect-ratio: 390 / 720;
+  }
+}
+
+.live-demo-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.live-demo-frame > span {
+  transition: opacity var(--duration) var(--ease);
+}
+
+.live-demo-caption {
+  font-size: var(--text-caption);
+  color: var(--muted);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.live-demo-name {
+  margin-top: var(--space-2);
+  font-size: var(--text-heading);
+  color: var(--fg);
+  font-variation-settings: "wght" var(--weight-medium);
+}
+
+.live-demo-status {
+  margin-top: var(--space-2);
+  font-size: var(--text-body);
+  color: var(--muted);
+}
+
+.live-demo-cta {
+  margin-top: auto;
+  font-size: var(--text-caption);
+  color: var(--fg);
+  transition: color var(--duration) var(--ease);
+}
+
+/* hover: hover excludes touch, same reasoning as products.css — no
+   :hover state should be reachable by tap. Scoped to the frame, so
+   hovering the buy link next to it never triggers this. */
+@media (hover: hover) {
+  .live-demo-frame:hover .live-demo-cta {
+    color: var(--accent);
+  }
+}
+
+.live-demo-frame:focus-visible,
+.live-demo-fullscreen:focus-visible {
+  outline: var(--border-width) solid var(--accent);
+  outline-offset: 2px;
+}
+
+.live-demo-fullscreen {
+  display: inline-block;
+  margin-top: var(--space-4);
+  font-size: var(--text-caption);
+  color: var(--muted);
+  transition: color var(--duration) var(--ease);
+}
+
+@media (hover: hover) {
+  .live-demo-fullscreen:hover {
+    color: var(--accent);
+  }
+}
