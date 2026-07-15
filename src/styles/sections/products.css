@@ -1,9 +1,18 @@
 /* products.css — editorial product list, not cards.
-   All values from tokens.css. No hardcoded hex/px/font-size. */
+   All values from tokens.css. No hardcoded hex/px/font-size.
+   Demo frame internals (.live-demo-*) live in demo.css — an entry's
+   two-column split is defined here, what's inside the right column
+   is defined there. */
 
 .products {
   margin-top: var(--space-7);
   padding: 0 var(--space-4);
+}
+
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
 .products-label {
@@ -13,28 +22,22 @@
   text-transform: uppercase;
 }
 
+.products-count {
+  font-size: var(--text-caption);
+  color: var(--muted);
+}
+
 .products-list {
   list-style: none;
   margin-top: var(--space-4);
-  /* CSS counter, not a manual "01"/"02" in markup: a new entry only ever
-     needs a new <li>, the number follows automatically — matches the
-     "scale to N entries without touching CSS" rule this file already
-     follows for the asymmetric offset below. */
-  counter-reset: products-count;
 }
 
 .products-entry {
-  counter-increment: products-count;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
   border-top: var(--border-width) solid var(--accent);
-}
-
-.products-entry::before {
-  content: counter(products-count, decimal-leading-zero);
-  display: block;
-  margin-top: var(--space-4);
-  color: var(--accent);
-  font-size: var(--text-caption);
-  letter-spacing: var(--tracking-wide);
 }
 
 /* Asymmetric offset alternates by position, so it scales to N entries
@@ -43,36 +46,53 @@
   margin-left: var(--space-5);
 }
 
-.products-link {
-  display: block;
-  padding: 0 0 var(--space-4);
-  text-decoration: none;
+@media (min-width: 1024px) {
+  /* 768px was tried first: frame (~24-26rem) plus the even-entry
+     var(--space-5) offset left too little room for the text column.
+     1024px is where both columns get comfortable width. */
+  .products-entry {
+    flex-direction: row;
+    gap: var(--space-5);
+  }
+}
+
+.products-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  /* flex: 1 lets the text column claim all width left over from the
+     fixed-width demo frame; align-items: stretch (the row default)
+     then equalizes both columns to the frame's aspect-ratio height,
+     and this space-between spreads the three floors across it. */
+  .products-info {
+    flex: 1 1 auto;
+    justify-content: space-between;
+  }
 }
 
 .products-name {
-  position: relative;
-  display: inline-block;
-  font-size: var(--text-heading);
+  display: block;
+  font-size: var(--text-display);
   color: var(--fg);
-  letter-spacing: var(--tracking-normal);
-  font-variation-settings: "wght" var(--weight-regular);
-  transition:
-    color var(--duration) var(--ease),
-    letter-spacing var(--duration) var(--ease),
-    font-variation-settings var(--duration) var(--ease);
+  font-variation-settings: "wght" var(--weight-light);
 }
 
-.products-name::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: var(--border-width);
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--duration) var(--ease);
+@media (min-width: 1024px) {
+  /* --text-display scales with viewport width (vw), but past this
+     breakpoint the text column is much narrower than the viewport —
+     capped relative to the column's own width (cqi) so "sisa-app"
+     can't outgrow it. */
+  .products-info {
+    container-type: inline-size;
+  }
+
+  .products-name {
+    font-size: min(var(--text-display), 20cqi);
+  }
 }
 
 .products-description {
@@ -82,30 +102,58 @@
   font-size: var(--text-body);
 }
 
-/* hover: hover excludes touch — without this, some browsers require a
-   first tap just to trigger :hover state before a second tap actually
-   follows the link, which is exactly the double-tap trap the brief
-   warns about. Gated on the whole entry, not just the link, since the
-   entry number and padding are part of the same hover target. */
-@media (hover: hover) {
-  .products-entry:hover .products-name {
-    color: var(--accent);
-    letter-spacing: var(--tracking-wide);
-    font-variation-settings: "wght" var(--wght-full);
-  }
+.products-facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
 
-  .products-entry:hover .products-name::after {
-    transform: scaleX(1);
+.products-fact-label {
+  margin-bottom: var(--space-2);
+}
+
+.products-fact-list {
+  list-style: none;
+}
+
+.products-fact-list li {
+  font-size: var(--text-caption);
+  color: var(--muted);
+  line-height: var(--line-normal);
+}
+
+.products-buy-link {
+  align-self: flex-start;
+  display: inline-block;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--accent);
+  color: var(--fg);
+  background: transparent;
+  font-size: var(--text-body);
+  font-variation-settings: "wght" var(--weight-medium);
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .products-buy-link {
+    transition:
+      background-color var(--duration) var(--ease),
+      color var(--duration) var(--ease);
   }
 }
 
-@media (hover: hover) and (prefers-reduced-motion: reduce) {
-  .products-entry:hover .products-name {
-    letter-spacing: var(--tracking-normal);
-    font-variation-settings: "wght" var(--weight-regular);
+/* hover: hover excludes touch — without it, some browsers require a
+   first tap just to reach :hover, the double-tap trap. Scoped to the
+   buy link only, so hovering the demo frame next to it never triggers
+   this, and vice versa. */
+@media (hover: hover) {
+  .products-buy-link:hover {
+    background: var(--accent);
+    color: var(--bg);
   }
+}
 
-  .products-entry:hover .products-name::after {
-    transform: scaleX(0);
-  }
+.products-buy-link:focus-visible {
+  outline: var(--border-width) solid var(--accent);
+  outline-offset: 2px;
 }

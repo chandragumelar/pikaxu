@@ -64,3 +64,12 @@ Font family: Manrope (variable, weight axis 200–800). Accent usage: 1px border
 - Mobile-first. Test at 390px, 768px, 1440px.
 - Hero type must never cause horizontal scroll at any width.
 - Touch targets minimum 44px.
+
+## Embeds & Injected Content
+
+- JS-injected content must never cause layout shift: the container
+  must have its final dimensions before injection.
+- Third-party UI inside an iframe is contained by a 1px token border
+  only. No inner borders, no extra padding, no decoration around it.
+- All interactive elements must style :focus-visible: 1px solid
+  --accent outline with 2px offset. Never leave the browser default.
