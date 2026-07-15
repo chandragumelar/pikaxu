@@ -5,7 +5,7 @@ description: Design tokens, motion rules, layout patterns, and responsive rules 
 
 ## Design Direction
 
-The direction is "Kinetic Editorial". Typography is the visual — there are no illustrations, no 3D, and no stock photos. The site feels alive through type motion and scroll, not through decoration. The tone is serious-professional. It must NOT look like a finance tool or a dev tool.
+The direction is "Kinetic Editorial". Typography leads the visual, but imagery is allowed — product marks, illustrations, photos — as long as it sits inside the type system: sized to the type scale, palette-respecting, never decoration for its own sake. The site feels alive through type motion and scroll, not through decoration. The tone is serious-professional. It must NOT look like a finance tool or a dev tool.
 
 ## Tokens
 
@@ -42,7 +42,7 @@ Font family: Manrope (variable, weight axis 200–800). Accent usage: 1px border
 - Index page + one page per product (`/[product-name]`).
 - Index section order: hero, marquee, what-we-make, products, people, footer.
 - Product page section order: product name/hero, demo, facts, CTA, minimal footer + link back to index.
-- Index products section: editorial list entries, not cards — name + one sentence + arrow, whole entry links to the product page. No fact lists, demos, buy buttons, or entry counters on the index. Slight asymmetric offset is intentional. New products are added as new entries; the pattern must scale to N entries without redesign.
+- Index products section: editorial list entries, not cards — name + one sentence + arrow, whole entry links to the product page. No fact lists, demos, buy buttons, or entry counters on the index. Slight asymmetric offset is intentional. New products are added as new entries; the pattern must scale to N entries without redesign. Product entries on the index include a product mark (medium scale, sized and placed per approved Claude Design output). Marks follow the palette; lime stays a micro-accent.
 - Accent discipline: `--accent` is for micro-accents only (scroll hint, hover states, marquee, CTA border on product pages). Structural borders use `--border-color`. If lime appears more than a few times per viewport, it has stopped being an accent — cut.
 - Sharp corners or one small consistent radius token. 1px solid borders. No drop shadows, no glassmorphism.
 
