@@ -153,6 +153,7 @@
   color: var(--muted);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
+  transition: color var(--duration) var(--ease);
 }
 
 /* Touch/no-hover is the mobile-first default copy; (hover: hover)
@@ -169,6 +170,16 @@
 
   .live-demo-cta--pointer {
     display: inline;
+  }
+
+  /* Click target is the whole swap area (stretched link), not just
+     this text, so the hover is scoped to swap, matching .live-demo-
+     fullscreen's own hover treatment. After embed, .live-demo-swap's
+     children are replaced with an <iframe> — .live-demo-cta no longer
+     exists in the DOM at that point, so this can't ever match/leak
+     onto the embedded iframe. */
+  .live-demo-swap:hover .live-demo-cta {
+    color: var(--accent);
   }
 }
 
