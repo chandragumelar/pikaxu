@@ -59,6 +59,39 @@
         <ul class="products-list">
           <li class="products-entry">
             <a class="products-link" href="/sisa/">
+              <svg
+                class="products-mark"
+                viewBox="0 0 64 64"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <mask id="sisa-crescent">
+                  <rect width="64" height="64" fill="black" />
+                  <circle cx="26" cy="33" r="19" fill="white" />
+                  <circle cx="38" cy="25" r="17" fill="black" />
+                </mask>
+                <g mask="url(#sisa-crescent)">
+                  <circle cx="26" cy="33" r="19" fill="var(--fg)" opacity="0.16" />
+                </g>
+                <circle
+                  cx="38"
+                  cy="25"
+                  r="17"
+                  fill="none"
+                  stroke="var(--accent)"
+                  stroke-width="1.6"
+                  mask="url(#sisa-crescent)"
+                />
+                <circle
+                  cx="26"
+                  cy="33"
+                  r="19"
+                  fill="none"
+                  stroke="var(--fg)"
+                  stroke-width="1.1"
+                  opacity="0.45"
+                />
+              </svg>
               <span class="products-name">sisa-app</span>
               <span class="products-description"
                 >money manager — know what's safe to spend today</span
