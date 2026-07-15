@@ -1,18 +1,10 @@
-/* products.css — editorial product list, not cards.
-   All values from tokens.css. No hardcoded hex/px/font-size.
-   Demo frame internals (.live-demo-*) live in demo.css — an entry's
-   two-column split is defined here, what's inside the right column
-   is defined there. */
+/* products.css — editorial index list: name + one sentence + arrow,
+   whole entry links out to the product page. All values from
+   tokens.css. No hardcoded hex/px/font-size. */
 
 .products {
   margin-top: var(--space-7);
   padding: 0 var(--space-4);
-}
-
-.products-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
 }
 
 .products-label {
@@ -22,22 +14,13 @@
   text-transform: uppercase;
 }
 
-.products-count {
-  font-size: var(--text-caption);
-  color: var(--muted);
-}
-
 .products-list {
   list-style: none;
   margin-top: var(--space-4);
 }
 
 .products-entry {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  padding: var(--space-4) 0;
-  border-top: var(--border-width) solid var(--accent);
+  border-top: var(--border-width) solid var(--border-color);
 }
 
 /* Asymmetric offset alternates by position, so it scales to N entries
@@ -46,53 +29,22 @@
   margin-left: var(--space-5);
 }
 
-@media (min-width: 1024px) {
-  /* 768px was tried first: frame (~24-26rem) plus the even-entry
-     var(--space-5) offset left too little room for the text column.
-     1024px is where both columns get comfortable width. */
-  .products-entry {
-    flex-direction: row;
-    gap: var(--space-5);
-  }
-}
-
-.products-info {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-  min-width: 0;
-}
-
-@media (min-width: 1024px) {
-  /* flex: 1 lets the text column claim all width left over from the
-     fixed-width demo frame; align-items: stretch (the row default)
-     then equalizes both columns to the frame's aspect-ratio height,
-     and this space-between spreads the three floors across it. */
-  .products-info {
-    flex: 1 1 auto;
-    justify-content: space-between;
-  }
+.products-link {
+  display: block;
+  min-height: var(--space-5);
+  padding: var(--space-4) 0;
+  text-decoration: none;
 }
 
 .products-name {
-  display: block;
-  font-size: var(--text-display);
+  position: relative;
+  display: inline-block;
+  font-size: var(--text-heading);
   color: var(--fg);
-  font-variation-settings: "wght" var(--weight-light);
-}
-
-@media (min-width: 1024px) {
-  /* --text-display scales with viewport width (vw), but past this
-     breakpoint the text column is much narrower than the viewport —
-     capped relative to the column's own width (cqi) so "sisa-app"
-     can't outgrow it. */
-  .products-info {
-    container-type: inline-size;
-  }
-
-  .products-name {
-    font-size: min(var(--text-display), 20cqi);
-  }
+  font-variation-settings: "wght" var(--weight-regular);
+  transition:
+    color var(--duration) var(--ease),
+    font-variation-settings var(--duration) var(--ease);
 }
 
 .products-description {
@@ -102,58 +54,44 @@
   font-size: var(--text-body);
 }
 
-.products-facts {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.products-fact-label {
-  margin-bottom: var(--space-2);
-}
-
-.products-fact-list {
-  list-style: none;
-}
-
-.products-fact-list li {
-  font-size: var(--text-caption);
-  color: var(--muted);
-  line-height: var(--line-normal);
-}
-
-.products-buy-link {
-  align-self: flex-start;
+.products-arrow {
   display: inline-block;
-  padding: var(--space-2) var(--space-3);
-  border: var(--border-width) solid var(--accent);
-  color: var(--fg);
-  background: transparent;
-  font-size: var(--text-body);
-  font-variation-settings: "wght" var(--weight-medium);
-  text-decoration: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .products-buy-link {
-    transition:
-      background-color var(--duration) var(--ease),
-      color var(--duration) var(--ease);
-  }
+  margin-left: var(--space-2);
+  color: var(--accent);
+  opacity: 0;
+  transform: translateX(calc(-1 * var(--space-2)));
+  transition:
+    opacity var(--duration) var(--ease),
+    transform var(--duration) var(--ease);
 }
 
 /* hover: hover excludes touch — without it, some browsers require a
-   first tap just to reach :hover, the double-tap trap. Scoped to the
-   buy link only, so hovering the demo frame next to it never triggers
-   this, and vice versa. */
+   first tap just to reach :hover before a second tap actually follows
+   the link, the double-tap trap. Scoped to the whole entry so the
+   name, description area, and arrow all read as one hit target. */
 @media (hover: hover) {
-  .products-buy-link:hover {
-    background: var(--accent);
-    color: var(--bg);
+  .products-entry:hover .products-name {
+    font-variation-settings: "wght" var(--wght-full);
+  }
+
+  .products-entry:hover .products-arrow {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
-.products-buy-link:focus-visible {
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+  .products-entry:hover .products-name {
+    font-variation-settings: "wght" var(--weight-regular);
+  }
+
+  .products-entry:hover .products-arrow {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--space-2)));
+  }
+}
+
+.products-link:focus-visible {
   outline: var(--border-width) solid var(--accent);
   outline-offset: 2px;
 }
