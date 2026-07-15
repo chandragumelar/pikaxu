@@ -1,20 +1,6 @@
-/* demo.css — live demo specimen frame. Shared across pages: the
-   .live-demo-* frame itself is identical everywhere; .products-demo
-   (homepage two-column entry) and .sisa-demo (standalone /sisa page)
-   are two different outer wrappers around the same frame. */
-
-.products-demo {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-@media (min-width: 1024px) {
-  .products-demo {
-    width: clamp(24rem, 30vw, 26rem);
-    flex-shrink: 0;
-  }
-}
+/* demo.css — live demo specimen frame, used on /sisa only (the
+   homepage index no longer embeds a demo per the PR 17 products
+   diet). All values from tokens.css. No hardcoded hex/px/font-size. */
 
 .sisa-demo {
   margin-top: var(--space-7);
