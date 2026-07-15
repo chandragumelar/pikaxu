@@ -1,5 +1,6 @@
 // demo-embed.js — click-to-embed upgrade for the live demo specimen frame.
-// Base markup is a plain <a> to the demo URL; this only runs if JS loads.
+// Base markup is a stretched <a> (.live-demo-frame-link) covering the
+// whole frame; this only runs if JS loads.
 
 const FRAME_ID = 'live-demo-frame';
 const DEMO_URL = 'https://sisa-demo.pika-xu.com';
@@ -36,15 +37,23 @@ function initDemoEmbed() {
   const frame = document.getElementById(FRAME_ID);
   if (!frame) return;
 
+  // The stretched link and the fullscreen link are both descendants of
+  // frame, so their clicks bubble here too; stopping the fullscreen
+  // link's propagation (below) is what keeps it from also triggering
+  // this embed.
   frame.addEventListener(
     'click',
     (event) => {
       event.preventDefault();
-      frame.removeAttribute('href');
       embedDemo(frame);
     },
     { once: true }
   );
+
+  const fullscreenLink = frame.querySelector('.live-demo-fullscreen');
+  if (fullscreenLink) {
+    fullscreenLink.addEventListener('click', (event) => event.stopPropagation());
+  }
 }
 
 initDemoEmbed();

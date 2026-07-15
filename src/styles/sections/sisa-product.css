@@ -1,0 +1,158 @@
+/* sisa-product.css — /sisa spec-sheet: header + two-column body
+   (name/description/facts/buy left, demo frame right). Demo frame
+   internals (.live-demo-*) live in demo.css.
+   All values from tokens.css. No hardcoded hex/font-size; a few
+   literal rem values (facts/buy border, demo column width) are
+   this-component-specific dimensions from the approved design, not
+   reusable scale values — same precedent as demo.css's existing
+   aspect-ratio/max-width literals. */
+
+.sisa-product {
+  margin-top: var(--space-6);
+  padding: 0 var(--space-4);
+}
+
+.sisa-product-header {
+  padding-bottom: var(--space-4);
+  border-bottom: var(--border-width) solid var(--border-color);
+}
+
+.sisa-product-label {
+  font-size: var(--text-caption);
+  color: var(--muted);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.sisa-product-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  grid-template-areas:
+    "name"
+    "desc"
+    "demo"
+    "facts"
+    "buy";
+  margin-top: var(--space-5);
+}
+
+@media (min-width: 1024px) {
+  /* 768px was tried first: a ~520px demo column plus this text
+     column's facts strip left no room to breathe, facts wrapped
+     awkwardly. 1024px is where both columns get comfortable width. */
+  .sisa-product-body {
+    grid-template-columns: 1fr 32.5rem; /* 32.5rem = 520px, approved design width */
+    grid-template-areas: "name demo" "desc demo" "facts demo" "buy demo";
+    column-gap: var(--space-6);
+    row-gap: var(--space-5);
+    align-content: center;
+  }
+}
+
+.sisa-product-name {
+  grid-area: name;
+  display: block;
+  font-size: var(--text-display);
+  color: var(--fg);
+  line-height: var(--line-tight);
+  letter-spacing: var(--tracking-tight);
+  font-variation-settings: "wght" var(--wght-rest);
+}
+
+.sisa-product-description {
+  grid-area: desc;
+  color: var(--muted);
+  font-size: var(--text-lead);
+  line-height: var(--line-normal);
+  max-width: 29rem; /* ~460px, approved design measure for readable line length */
+}
+
+.sisa-product-facts {
+  grid-area: facts;
+  display: flex;
+  flex-direction: column;
+  border-top: var(--border-width) solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color);
+}
+
+.sisa-fact-cell {
+  padding: var(--space-3) 0;
+}
+
+.sisa-fact-cell + .sisa-fact-cell {
+  border-top: var(--border-width) solid var(--border-color);
+}
+
+@media (min-width: 1024px) {
+  .sisa-product-facts {
+    flex-direction: row;
+  }
+
+  .sisa-fact-cell {
+    flex: 1;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .sisa-fact-cell + .sisa-fact-cell {
+    border-top: 0;
+    border-left: var(--border-width) solid var(--border-color);
+  }
+}
+
+.sisa-fact-number {
+  display: block;
+  font-size: var(--text-caption);
+  color: var(--muted);
+}
+
+.sisa-fact-text {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--text-caption);
+  color: var(--fg);
+  font-variation-settings: "wght" var(--weight-medium);
+}
+
+.sisa-product-buy {
+  grid-area: buy;
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--accent);
+  color: var(--fg);
+  background: transparent;
+  font-size: var(--text-body);
+  font-variation-settings: "wght" var(--weight-medium);
+  text-decoration: none;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .sisa-product-buy {
+    display: inline-block;
+    align-self: flex-start;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sisa-product-buy {
+    transition:
+      background-color var(--duration) var(--ease),
+      color var(--duration) var(--ease);
+  }
+}
+
+/* hover: hover excludes touch — without it, some browsers require a
+   first tap just to reach :hover, the double-tap trap. */
+@media (hover: hover) {
+  .sisa-product-buy:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+}
+
+.sisa-product-buy:focus-visible {
+  outline: var(--border-width) solid var(--accent);
+  outline-offset: 2px;
+}
