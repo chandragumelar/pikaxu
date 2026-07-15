@@ -27,22 +27,21 @@
   border-top: var(--border-width) solid var(--border-color);
 }
 
-/* Asymmetric offset alternates by position, so it scales to N entries
-   without touching CSS when a new product is added. */
-.products-entry:nth-child(even) {
-  margin-left: var(--space-5);
-}
+/* Single product: entry is centered, no offset. The asymmetric
+   nth-child(even) offset returns once there's a second entry to
+   alternate against — see CLAUDE.md / frontend-SKILL.md. */
 
 .products-link {
   display: block;
   min-height: var(--space-5);
   padding: var(--space-4) 0;
   text-decoration: none;
+  text-align: center;
 }
 
 .products-mark {
   display: block;
-  margin-bottom: var(--space-3);
+  margin: 0 auto var(--space-3);
   width: var(--mark-size);
   height: var(--mark-size);
 }
@@ -67,7 +66,6 @@
 
 .products-arrow {
   display: inline-block;
-  margin-left: var(--space-2);
   color: var(--accent);
   opacity: 0;
   transform: translateX(calc(-1 * var(--space-2)));
