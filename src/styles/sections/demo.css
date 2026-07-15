@@ -6,6 +6,8 @@
 
 .sisa-product-demo {
   grid-area: demo;
+  display: flex;
+  justify-content: center;
 }
 
 @media (min-width: 1024px) {
@@ -16,15 +18,31 @@
 }
 
 .live-demo-frame {
+  /* 390x844 is the Sisa app's own natural design size (its internal
+     layout is built for a 390px-wide viewport, see its own max-width);
+     deriving width from an aspect-ratio instead let it shrink below
+     that on desktop (~330px), squeezing the app's internal layout.
+     Locking width to this size directly (capped by the column, so it
+     never overflows narrower viewports) keeps the app at the width it
+     was designed for. Height still caps at 80vh so the frame doesn't
+     dominate short/wide viewports. calc() compensates for the 1px
+     border on each side (box-sizing: border-box) so the CONTENT stays
+     exactly 390px, not 390px-minus-border.
+     tokens.css is protected; these are single-use component
+     dimensions, not scale values. */
+  --demo-natural-w: 390px;
+  --demo-natural-h: 844px;
+  --demo-viewport-cap: 80vh;
+
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  /* Square at every width: width follows the column (fixed 32.5rem on
-     desktop via sisa-product.css's grid, fluid on mobile), height
-     derives from that — not from the left column's height (dropped
-     the old mobile-rectangle/desktop-full-height split). */
-  aspect-ratio: 1 / 1;
+  width: min(calc(var(--demo-natural-w) + 2 * var(--border-width)), 100%);
+  height: min(var(--demo-natural-h), var(--demo-viewport-cap));
+  border: var(--border-width) solid var(--border-color);
+  /* Root cause of the previous overflow bug: without this, iframe
+     content taller than the frame's box could paint past the border
+     instead of being clipped to it. */
   overflow: hidden;
 }
 
@@ -47,6 +65,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+/* Placeholder-only padding: once the iframe is injected (demo-embed.js
+   adds this class), the embedded app should get the frame's full
+   width, not the width minus the placeholder's breathing room. */
+.live-demo-swap--embedded {
+  padding: 0;
 }
 
 /* Stretched-link pattern: this covers the swap area (including its
