@@ -20,6 +20,10 @@
 }
 
 .products-entry {
+  /* Approved design values, not part of the shared type/spacing scale
+     (component-specific, like demo.css's literal frame dimensions) —
+     defined locally since tokens.css is protected. */
+  --mark-size: clamp(96px, 10vw, 140px);
   border-top: var(--border-width) solid var(--border-color);
 }
 
@@ -34,6 +38,13 @@
   min-height: var(--space-5);
   padding: var(--space-4) 0;
   text-decoration: none;
+}
+
+.products-mark {
+  display: block;
+  margin-bottom: var(--space-3);
+  width: var(--mark-size);
+  height: var(--mark-size);
 }
 
 .products-name {
