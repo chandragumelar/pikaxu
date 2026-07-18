@@ -127,6 +127,18 @@
   gap: var(--space-2);
 }
 
+.live-demo-mark {
+  /* 72px + 22% radius: brand-mark treatment, not a shared scale value
+     (same single-use-dimension pattern as --demo-natural-w above). */
+  --mark-size: 72px;
+
+  display: block;
+  width: var(--mark-size);
+  height: var(--mark-size);
+  border-radius: 22%;
+  overflow: hidden;
+}
+
 .live-demo-name {
   font-size: var(--text-heading);
   color: var(--fg);
