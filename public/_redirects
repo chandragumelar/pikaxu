@@ -1,0 +1,8 @@
+# Cloudflare Pages deployment rule. Astro preview serves the accessible HTML fallback.
+/products/sisa /sisa/ 301
+/products/sisa/ /sisa/ 301
+
+/id / 301
+/id/ / 301
+/id/products/sisa /sisa/ 301
+/id/products/sisa/ /sisa/ 301

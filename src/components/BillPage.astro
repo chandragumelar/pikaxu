@@ -1,0 +1,11 @@
+---
+import SiteFooter from './SiteFooter.astro';
+import { localizedPath } from '../lib/routes.js';
+const { locale = 'id' } = Astro.props;
+const id = locale === 'id';
+---
+<main id="main-content" tabindex="-1" class="bill-page">
+  <div class="sheet-running"><a href={localizedPath('/',locale)}>Pika-Xu / 02</a><span class="eyebrow">{id ? 'Aplikasi patungan' : 'A split bill app'}</span></div>
+  <section class="bill-broadside" aria-labelledby="bill-title"><h1 id="bill-title"><span>Bagi</span><span>Bill<span class="bill-period">.</span></span></h1><div class="bill-margin"><p class="eyebrow">{id ? 'Kumpul bareng.' : 'Good times.'}<br/>{id ? 'Patungan bareng.' : 'Shared bill.'}</p><div class="fraction" aria-hidden="true"><span>÷</span></div><p>{id ? 'Bagi tagihan' : 'Split the bill'}<br/>{id ? 'bersama teman.' : 'with friends.'}</p></div><div class="bill-bottom"><p>{id ? 'Buka aplikasinya untuk mencoba patungan.' : 'Open the app to try splitting a bill.'}<br/>{id ? 'Versi saat ini masih dikembangkan.' : 'The current version is still in development.'}</p><a class="button" href="https://bagibill.pika-xu.com/">{id ? 'Buka BagiBill' : 'Open BagiBill'} <span aria-hidden="true">↗</span></a></div></section>
+  <section class="bill-afterword"><p class="eyebrow">{id ? 'Untuk pengeluaran bersama' : 'For shared expenses'}</p><h2>{id ? 'Tagihan bersama,' : 'Share the bill.'}<br/><em>{id ? 'dibagi bersama.' : 'Keep the good times.'}</em></h2><p>{id ? 'BagiBill membantu urusan patungan, sementara Sisa menemani Anda mengatur uang sehari-hari. Dua aplikasi dari Pika-Xu untuk kebutuhan yang berbeda.' : 'BagiBill is for shared bills. Sisa is for managing everyday money. Two apps from Pika-Xu for different needs.'}</p><a class="text-link" href={localizedPath('/sisa/',locale)}>{id ? 'Kenali Sisa' : 'Meet Sisa'} <span aria-hidden="true">↗</span></a></section>
+</main><SiteFooter returnPath={localizedPath('/',locale)} locale={locale}/>

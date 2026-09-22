@@ -1,0 +1,7 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import Page from '../../components/BillPage.astro';
+import { pageCopy } from '../../content/experience-copy.js';
+const copy = pageCopy.id.bagibill;
+---
+<SiteLayout locale="id" path="/bagibill/" title={copy.title} description={copy.description}><Page locale="id"/></SiteLayout>

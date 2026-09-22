@@ -1,0 +1,16 @@
+---
+import { getDemo } from '../content/products.js';
+import { exampleCopy } from '../content/experience-copy.js';
+import { formatAmount } from '../scripts/modules/example-state.js';
+const { demoId, locale = 'id' } = Astro.props;
+const demo = getDemo(demoId);
+const copy = exampleCopy[locale];
+---
+<div class="example" data-example data-locale={locale} data-initial={demo.initialAmount} data-expense={demo.expenseAmount}>
+  <p class="eyebrow example-heading">{copy.heading}</p><p class="amount" data-amount>{formatAmount(demo.initialAmount)}</p>
+  <div class="example-gauge" aria-hidden="true"><span class="example-fill" data-fill></span></div>
+  <p class="example-state" data-state>{copy.before}</p>
+  <div class="example-controls" data-controls hidden><button type="button" data-spend>{copy.spend} · {formatAmount(demo.expenseAmount)}</button><button type="button" data-reset>{copy.reset}</button></div>
+  <p class="example-disclosure">{copy.disclosure}</p><p class="example-fallback" data-fallback>{copy.fallback}</p><p class="example-status" data-status role="status" aria-live="polite" aria-atomic="true"></p>
+</div>
+<script>import '../scripts/modules/sisa-example.js';</script>

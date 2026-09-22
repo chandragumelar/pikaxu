@@ -1,0 +1,64 @@
+---
+import SiteFooter from './SiteFooter.astro';
+import { printableBooks, codingCollection, kertasOfferings, customCollections, invitationExamples } from '../content/kertas-inventory.js';
+import { localizedPath } from '../lib/routes.js';
+const { locale = 'id' } = Astro.props;
+const language = locale === 'en' ? 'en' : 'id';
+const t = (id, en) => language === 'id' ? id : en;
+const actionLabel = (action) => typeof action.label === 'string' ? action.label : action.label?.[language];
+const busyBooks = printableBooks.filter(book => book.kind === 'busy');
+const interactive = kertasOfferings.find(item => item.id === 'interactive');
+const returnPath = localizedPath('/', locale);
+---
+<main id="main-content" tabindex="-1" class="kertas-page">
+  <div class="sheet-running"><a href={returnPath}>Pika-Xu / 03</a><span class="eyebrow">Kertas Kecil Project</span></div>
+  <header class="kertas-heading">
+    <p class="eyebrow">{t('Untuk bermain, bercerita, dan merayakan.', 'For play, stories, and celebrations.')}</p>
+    <h1>{t('Dari selembar,', 'A page can be')}<br/><em>{t('mulai cerita.', 'a beginning.')}</em></h1>
+    <p>{t('Buku aktivitas, lembar digital, karya personal, dan undangan. Buka lipatannya untuk mengenal masing-masing.', 'Activity books, digital worksheets, personalized creations, and invitations. Open a fold to meet each one.')}</p>
+    <span class="fold-corner" aria-hidden="true">kk<br/>p.</span>
+  </header>
+  <div class="folio" data-folio>
+    <details class="folio-fold printable-fold" id="printable" open>
+      <summary><span class="fold-number">01</span><span class="fold-name">{t('Worksheet', 'Printable')} <em>{t('Printable', 'Worksheets')}</em><small>{t('Buku aktivitas anak · usia 2–5 tahun', 'Children’s activity books · ages 2–5')}</small></span><span class="fold-sign" aria-hidden="true">+</span></summary>
+      <div class="fold-content">
+        <p class="folio-intro">{t('Selembar di meja.', 'A page on the table.')}<br/>{t('Waktu bermain bersama.', 'Time to play together.')}</p>
+        <div class="book-families">
+          <section aria-labelledby="busy-title">
+            <h2 id="busy-title">Busy Books</h2>
+            <p class="book-description">{t('Empat buku aktivitas anak yang dapat dicetak, untuk usia 2, 3, 4, dan 5 tahun. Aktivitas sederhana seperti menelusuri garis dan mencocokkan gambar mengisi waktu bermain bersama.', 'Four printable children’s activity books, for ages 2, 3, 4, and 5. Simple activities such as tracing lines and matching pictures make time for hands-on play together.')}</p>
+            <ol class="age-sheets">{busyBooks.map(book => <li><span class="age-label">{t('Usia', 'Age')}</span><strong>{book.age}</strong><p>{t('tahun', 'years')}</p>{book.action && <a class="book-access" href={book.action.href}>{actionLabel(book.action)}</a>}</li>)}</ol>
+            <span class="state-stamp">{t('Segera hadir', 'Coming soon')}</span>
+          </section>
+          <section class="coding-note" aria-labelledby="coding-title">
+            <span class="eyebrow">{t('Bermain tanpa layar', 'Screen-free play')}</span><h2 id="coding-title">Coding Books for Kids</h2>
+            <p>{t(`Buku aktivitas cetak untuk mengenal gagasan awal coding tanpa layar, bagi anak usia ${codingCollection.ageRange} tahun.`, `Printable activity books introducing early coding ideas without a screen, for ages ${codingCollection.ageRange}.`)}</p>
+            <span class="state-stamp">{t('Segera hadir', 'Coming soon')}</span>
+            {codingCollection.action && <a class="book-access" href={codingCollection.action.href}>{actionLabel(codingCollection.action)}</a>}
+            <span class="coding-symbol" aria-hidden="true">{'{ }'}</span>
+          </section>
+        </div>
+      </div>
+    </details>
+    <details class="folio-fold touch-fold" id="interactive">
+      <summary><span class="fold-number">02</span><span class="fold-name">{t('Worksheet', 'Interactive')} <em>{t('Interaktif', 'Worksheets')}</em><small>{t('Untuk HP dan tablet · segera hadir', 'For phones and tablets · coming soon')}</small></span><span class="fold-sign" aria-hidden="true">+</span></summary>
+      <div class="fold-content quiet-fold"><h2>{t('Halaman kecil,', 'A little page,')}<br/><em>{t('sentuhan baru.', 'a new touch.')}</em></h2><div><p>{t('Lembar aktivitas anak bergaya busy book dan coding book, langsung di HP atau tablet. Anak bermain melalui sentuhan layar, tanpa perlu mencetak halaman.', 'Busy book and coding book style activities for children, on a phone or tablet. Play by touching the screen, with no pages to print.')}</p><span class="state-stamp">{t('Segera hadir', 'Coming soon')}</span>{interactive.action && <a class="button" href={interactive.action.href}>{actionLabel(interactive.action)}</a>}</div></div>
+    </details>
+    <details class="folio-fold custom-fold" id="custom">
+      <summary><span class="fold-number">03</span><span class="fold-name">{t('Buku & Worksheet', 'Custom Books &')} <em>{t('Custom', 'Worksheets')}</em><small>{t('Worksheet custom & buku cerita personal · segera hadir', 'Custom worksheets & personalized storybooks · coming soon')}</small></span><span class="fold-sign" aria-hidden="true">+</span></summary>
+      <div class="fold-content custom-possibility"><span class="eyebrow">{t('Ide Anda, cerita Anda.', 'Your idea, your story.')}</span><h2>{t('Ada bagian', 'A little more')}<br/><span class="empty-line" aria-hidden="true"></span><em>{t('dari Anda.', 'like you.')}</em></h2>
+        {customCollections.map(collection => <section aria-labelledby={`custom-${collection.id}`}><h3 id={`custom-${collection.id}`}>{collection.title[language]}</h3><p>{collection.description[language]}</p><span class="state-stamp">{t('Segera hadir', 'Coming soon')}</span>{collection.action && <a class="button" href={collection.action.href}>{actionLabel(collection.action)}</a>}</section>)}
+      </div>
+    </details>
+    <details class="folio-fold invitation-fold" id="invitation">
+      <summary><span class="fold-number">04</span><span class="fold-name">{t('Undangan Digital', 'Custom Digital')} <em>{t('Custom', 'Invitations')}</em><small>{t('Untuk hari istimewa · segera hadir', 'For special occasions · coming soon')}</small></span><span class="fold-sign" aria-hidden="true">+</span></summary>
+      <div class="fold-content invitation-content">
+        <p>{t('Undangan digital personal untuk merayakan pernikahan, ulang tahun, dan momen berkumpul bersama.', 'Personal digital invitations for weddings, birthdays, and moments worth gathering for.')}</p><span class="state-stamp">{t('Segera hadir', 'Coming soon')}</span>
+        {invitationExamples.map(example => <section aria-labelledby={`example-${example.id}`}><p class="eyebrow">{t('Contoh karya', 'Example work')}</p><h2 id={`example-${example.id}`}>{example.title === 'Berry is Three' ? <>Berry<br/><em>is Three.</em></> : example.title}</h2><p>{example.description[language]}</p><a href={example.href} class="button">{example.actionLabel[language]} <span aria-hidden="true">↗</span></a></section>)}
+      </div>
+    </details>
+  </div>
+  <div class="folio-colophon"><a class="text-link" href={returnPath}>{t('Kembali ke studio', 'Back to the studio')} <span aria-hidden="true">↗</span></a></div>
+</main>
+<SiteFooter locale={locale}/>
+<script>import '../scripts/modules/folio.js';</script>
