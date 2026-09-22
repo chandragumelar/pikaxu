@@ -1,0 +1,8 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import HomePage from '../../components/HomePage.astro';
+import { getProduct } from '../../content/products.js';
+import { pageCopy } from '../../content/experience-copy.js';
+const copy = pageCopy.id.home;
+---
+<SiteLayout locale="id" path="/" canonicalPath="/" title={copy.title} description={copy.description} noindex><HomePage product={getProduct('sisa')} locale="id"/></SiteLayout>

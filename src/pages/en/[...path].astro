@@ -1,0 +1,19 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import HomePage from '../../components/HomePage.astro';
+import ProductPage from '../../components/ProductPage.astro';
+import BillPage from '../../components/BillPage.astro';
+import KertasPage from '../../components/KertasPage.astro';
+import { getProduct } from '../../content/products.js';
+import { pageCopy } from '../../content/experience-copy.js';
+export function getStaticPaths() { return [{params:{path:undefined},props:{key:'home',base:'/'}},{params:{path:'sisa'},props:{key:'sisa',base:'/sisa/'}},{params:{path:'bagibill'},props:{key:'bagibill',base:'/bagibill/'}},{params:{path:'kertas-kecil'},props:{key:'kertas',base:'/kertas-kecil/'}}]; }
+const { key, base } = Astro.props;
+const copy = pageCopy.en[key];
+const product = getProduct('sisa');
+---
+<SiteLayout locale="en" path={base} title={copy.title} description={copy.description} socialMediaId={key === 'sisa' ? 'sisa-social' : 'studio-social'}>
+{key === 'home' && <HomePage product={product} locale="en"/>}
+{key === 'sisa' && <ProductPage product={product} locale="en"/>}
+{key === 'bagibill' && <BillPage locale="en"/>}
+{key === 'kertas' && <KertasPage locale="en"/>}
+</SiteLayout>

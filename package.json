@@ -4,11 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "astro dev",
+    "validate:content": "node src/content/validate.js",
+    "build": "npm run validate:content && node scripts/generate-sitemap.js && astro build",
+    "preview": "astro preview",
+    "validate:release": "node src/content/validate.js --release",
+    "build:release": "node scripts/build-release.js",
+    "test": "node --test scripts/tests/*.test.js",
+    "check:output": "python3 scripts/check-output.py"
   },
   "devDependencies": {
+    "astro": "^7.3.3",
     "vite": "^8.1.1"
   }
 }

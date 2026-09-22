@@ -1,0 +1,10 @@
+---
+import { routeProducts } from '../../content/publication.js';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ProductPage from '../../components/ProductPage.astro';
+import { pageCopy } from '../../content/experience-copy.js';
+export function getStaticPaths() { return routeProducts.map(product => ({params:{slug:product.slug},props:{product}})); }
+const { product } = Astro.props;
+const copy = pageCopy.id.sisa;
+---
+<SiteLayout locale="id" path="/sisa/" canonicalPath="/sisa/" title={copy.title} description={copy.description} socialMediaId="sisa-social" noindex><ProductPage product={product} locale="id"/></SiteLayout>

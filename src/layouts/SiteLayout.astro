@@ -1,0 +1,48 @@
+---
+import '../styles/fonts.css';
+import '../styles/experience.css';
+import { absoluteUrl, localizedPath } from '../lib/routes.js';
+import { isRelease } from '../content/publication.js';
+import { getMedia, studio } from '../content/products.js';
+const { locale = 'id', path = '/', title, description, canonicalPath, noindex = false, socialMediaId = studio.socialMediaId, omitCanonical = false } = Astro.props;
+const canonical = absoluteUrl(canonicalPath ?? localizedPath(path, locale));
+const socialBase = getMedia(socialMediaId);
+const social = locale === 'en' ? {...socialBase, source: socialBase.source.replace('.webp', '-en.webp'), alt: socialMediaId === 'sisa-social' ? 'Sisa. Manage your money. Money manager app for everyday spending.' : 'Pika-Xu. Make everyday life easier.'} : socialBase;
+const preview = !isRelease;
+const home = localizedPath('/', locale);
+const otherLocale = locale === 'id' ? 'en' : 'id';
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f2efdf" />
+    {(preview || noindex) && <meta name="robots" content="noindex, nofollow" />}
+    <title>{title}</title><meta name="description" content={description} />
+    {!omitCanonical && <link rel="canonical" href={canonical} />}
+    {!omitCanonical && <><link rel="alternate" hreflang="id" href={absoluteUrl(localizedPath(path, 'id'))}/><link rel="alternate" hreflang="en" href={absoluteUrl(localizedPath(path, 'en'))}/><link rel="alternate" hreflang="x-default" href={absoluteUrl(localizedPath(path, 'id'))}/></>}
+    <link rel="icon" href="/art/impression-icon.png" type="image/png" /><link rel="apple-touch-icon" href="/art/impression-icon.png" />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/manrope-variable-latin.woff2" crossorigin />
+    <meta property="og:type" content="website" />{!omitCanonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:image" content={absoluteUrl(social.source)} /><meta property="og:image:width" content={social.width} /><meta property="og:image:height" content={social.height} /><meta property="og:image:alt" content={social.alt} />
+    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={absoluteUrl(social.source)} /><meta name="twitter:image:alt" content={social.alt} />
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main-content">{locale === 'id' ? 'Lewati ke konten' : 'Skip to content'}</a>
+    {preview && <p class="preview-label">{locale === 'id' ? 'PREVIEW LOKAL · BELUM LAYAK RILIS' : 'LOCAL PREVIEW · WORK IN PROGRESS'}</p>}
+    <header class="site-header"><a class="brand" href={home} aria-label={locale === 'id' ? 'Beranda Pika-Xu' : 'Pika-Xu home'}>pika<span aria-hidden="true">—</span>xu<span class="brand-dot" aria-hidden="true">+</span></a><nav class="site-nav" aria-label={locale === 'id' ? 'Navigasi utama' : 'Main navigation'}><a href={localizedPath('/sisa/', locale)}>Sisa</a><a href={localizedPath('/bagibill/', locale)}>BagiBill</a><a href={localizedPath('/kertas-kecil/', locale)}>Kertas Kecil</a><a href={`${home}#studio`}>Studio</a></nav><a class="language-switch" href={localizedPath(path, otherLocale)} lang={otherLocale} hreflang={otherLocale} aria-label={locale === 'id' ? 'Read this page in English' : 'Baca halaman ini dalam Bahasa Indonesia'}>{locale === 'id' ? 'English' : 'Indonesia'}</a></header>
+
+    <slot />
+    <script>
+      // Preserve the current section when changing language; navigation stays native.
+      document.querySelectorAll('.language-switch').forEach(link => {
+        link.addEventListener('click', () => {
+          const destination = new URL(link.getAttribute('href'), window.location.origin);
+          destination.hash = window.location.hash;
+          link.setAttribute('href', destination.pathname + destination.hash);
+        });
+      });
+    </script>
+    {isRelease && import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN && <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN })}></script>}
+  </body>
+</html>

@@ -1,0 +1,8 @@
+---
+import { getAction } from '../content/products.js';
+const { id, label, class: className = 'button', locale = 'id' } = Astro.props;
+const action = getAction(id);
+---
+<a class={className} href={action.destination} target={action.openMode === 'new' ? '_blank' : undefined} rel={action.openMode === 'new' ? 'noopener noreferrer' : undefined}>
+  <span>{label ?? action.locales[locale] ?? action.locales.en}{action.openMode === 'new' && <span class="visually-hidden">{locale === 'id' ? ' (terbuka di tab baru)' : ' (opens in a new tab)'}</span>}</span><span aria-hidden="true">↗</span>
+</a>

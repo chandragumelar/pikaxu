@@ -1,0 +1,7 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import Page from '../../components/KertasPage.astro';
+import { pageCopy } from '../../content/experience-copy.js';
+const copy = pageCopy.id.kertas;
+---
+<SiteLayout locale="id" path="/kertas-kecil/" title={copy.title} description={copy.description}><Page locale="id"/></SiteLayout>

@@ -1,0 +1,5 @@
+---
+import { getAction } from '../content/products.js';
+const { returnPath, locale = 'id' } = Astro.props;
+---
+<footer class="site-footer"><p>© 2026 Pika-Xu · {locale === 'id' ? 'Dibuat untuk keseharian.' : 'Made for everyday life.'}</p><div class="footer-links"><a href={getAction('studio-contact').destination}>team@pika-xu.com</a><a href={returnPath ?? '#top'}>{returnPath ? (locale === 'id' ? 'Kembali ke Pika-Xu' : 'Back to Pika-Xu') : (locale === 'id' ? 'Kembali ke atas' : 'Back to top')} <span aria-hidden="true">↗</span></a></div></footer>

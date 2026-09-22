@@ -1,0 +1,21 @@
+---
+import SiteFooter from './SiteFooter.astro';
+import SisaExample from './SisaExample.astro';
+import ActionLink from './ActionLink.astro';
+import { getOffer } from '../content/products.js';
+import { localizedPath } from '../lib/routes.js';
+const { product, locale = 'id' } = Astro.props;
+const id = locale === 'id';
+const offer = getOffer(product.offerId);
+---
+<main id="main-content" tabindex="-1" class="sisa-page">
+  <section class="sisa-sheet" aria-labelledby="product-heading">
+    <div class="sheet-running"><a href={localizedPath('/',locale)}>Pika-Xu / 01</a><span class="eyebrow">Sisa</span><a href="#purchase">{id ? 'Detail pembelian' : 'Purchase details'} ↓</a></div>
+    <h1 id="product-heading">{id ? 'Uang untuk' : 'Room for'} <em>{id ? 'hari ini.' : 'today.'}</em></h1>
+    <p class="sisa-intro">{id ? 'Lihat berapa yang bisa dipakai hari ini.' : 'Know what you can spend today.'}<br/>{id ? 'Aplikasi pengelola uang untuk pengeluaran sehari-hari.' : 'A money manager app for everyday spending.'}</p>
+    <div class="sisa-working"><div class="margin-note"><span class="eyebrow">01 / {id ? 'Coba catat pengeluaran' : 'Try adding an expense'}</span><p>{id ? 'Satu makan siang.' : 'One lunch.'}<br/>{id ? 'Langsung terlihat sisanya.' : 'See what you have left.'}</p><p>{id ? 'Angka ini hanya contoh. Buka demo untuk mencoba pengaturan anggaran di Sisa.' : 'This is example money. Open the demo to try Sisa’s budgeting tools.'}</p></div><SisaExample demoId={product.demoId} locale={locale}/></div>
+    <div class="sisa-handoff"><p>{id ? 'Coba langsung aplikasinya.' : 'Try the app for yourself.'}</p><ActionLink id="sisa-demo" locale={locale} label={id ? 'Buka demo Sisa' : 'Open Sisa demo'}/></div>
+  </section>
+  <section class="product-notes" aria-labelledby="notes-title"><div class="note-heading"><span class="eyebrow">02 / {id ? 'Tentang Sisa' : 'About Sisa'}</span><h2 id="notes-title">{id ? 'Lebih mudah' : 'Make everyday'}<br/>{id ? 'mengatur uang.' : 'money simpler.'}</h2></div><div class="note-copy"><p>{id ? 'Menurut deskripsi produk, Sisa dirancang untuk digunakan secara offline, tanpa akun, dengan data tersimpan di perangkat Anda.' : 'The product listing describes an offline-first money manager, with no account required and data kept on your device.'}</p><p>{id ? 'Sisa memperhitungkan tagihan dan tabungan untuk melihat uang yang tersisa. Simulasi di atas hanya menunjukkan pengurangan sederhana.' : 'Sisa works out what remains after bills and savings. The example above only illustrates a simple subtraction.'}</p><a class="text-link" href="https://pikaxustudio.gumroad.com/l/sisa-app">{id ? 'Lihat detail produk' : 'Read the product details'} <span aria-hidden="true">↗</span></a></div></section>
+  <section class="purchase-slip" id="purchase" aria-labelledby="purchase-heading"><p class="eyebrow">03 / {id ? 'Dapatkan Sisa' : 'Get Sisa'}</p><h2 id="purchase-heading">{id ? 'Mulai atur' : 'Take charge of'}<br/><em>{id ? 'uang Anda.' : 'your money.'}</em></h2><div class="purchase-bottom"><p>{id ? 'Beli Sisa melalui Gumroad.' : 'Purchase Sisa on Gumroad.'}<br/>{id ? 'Harga dan detail pembelian tersedia di halaman produk.' : 'Current pricing and purchase details are on the listing.'}</p><ActionLink id={offer.purchaseActionId} locale={locale} label={id ? 'Beli Sisa di Gumroad' : 'Buy Sisa on Gumroad'}/></div></section>
+</main><SiteFooter returnPath={localizedPath('/',locale)} locale={locale}/>

@@ -1,0 +1,66 @@
+---
+import SiteFooter from './SiteFooter.astro';
+import ActionLink from './ActionLink.astro';
+import SisaExample from './SisaExample.astro';
+import { localizedPath } from '../lib/routes.js';
+const { product, locale = 'id' } = Astro.props;
+const id = locale === 'id';
+const path = (value) => localizedPath(value, locale);
+const c = id ? {
+ eyebrow:'Studio independen / untuk keseharian', edition:'Aplikasi, buku & karya personal', heading:'Bikin hari-hari', accent:'lebih mudah.',
+ intro:'Aplikasi untuk mengatur uang, buku aktivitas anak, dan karya yang dibuat khusus untuk Anda.', find:'Lihat produk',
+ choose:'Pilih produk', sisa:'Aplikasi pengelola uang', bill:'Aplikasi patungan', kertas:'Buku & karya personal',
+ sisaTop:'Kelola pengeluaran sehari-hari', less:'Lebih', guess:'jelas.', try:'Coba catat satu pengeluaran.', sisaSummary:'Lihat pengeluaran dan uang yang masih bisa dipakai.', demo:'Buka demo Sisa', detail:'Tentang Sisa & pembelian',
+ billTop:'BagiBill', good:'Kumpul bareng.', shared:'Bayar', billWord:'bareng.', you:'KAMU', me:'AKU', us:'KITA', billSummary:'Bagi tagihan bersama teman. Versi saat ini masih dikembangkan.', openBill:'Buka BagiBill', aboutBill:'Tentang BagiBill',
+ kertasTop:'Kertas Kecil Project / bagian dari Pika-Xu', what:'Untuk', if:'Anda.',
+ items:[['01 / Buku aktivitas','Busy book & coding book anak','Untuk dicetak'],['02 / Worksheet digital','Aktivitas anak di HP & tablet','Segera hadir'],['03 / Buku & worksheet custom','Buku cerita personal & worksheet','Hadiah sesuai keinginan · Segera hadir'],['04 / Undangan digital custom','Untuk ulang tahun & pernikahan','Lihat contoh undangan']],
+ studio:'Tentang studio', small:'Berawal dari', beginning:'hal sehari-hari.', first:'Mengatur pengeluaran. Patungan bersama teman. Menemani anak bermain. Memberi hadiah untuk orang tersayang.', second:'Pika-Xu adalah studio di balik Sisa, BagiBill, dan Kertas Kecil Project. Kami membuat aplikasi dan karya personal untuk kebutuhan sehari-hari maupun momen istimewa.'
+} : {
+ eyebrow:'Independent studio / made for everyday life', edition:'Apps, books & custom creations', heading:'Make everyday', accent:'life easier.',
+ intro:'Apps for your money. Books for your children. Custom creations for your special moments.', find:'See our products',
+ choose:'Choose a product', sisa:'Money manager app', bill:'A split bill app', kertas:'Books & custom creations',
+ sisaTop:'Keep track of everyday spending', less:'Less', guess:'guess.', try:'Try adding one expense.', sisaSummary:'See your spending and what you have left.', demo:'Open Sisa demo', detail:'About Sisa & purchase',
+ billTop:'BagiBill', good:'Good times.', shared:'Shared', billWord:'bill.', you:'YOU', me:'ME', us:'US', billSummary:'Share the bill with friends. The current version is still in development.', openBill:'Open BagiBill', aboutBill:'About BagiBill',
+ kertasTop:'Kertas Kecil Project / part of Pika-Xu', what:'Made', if:'for you.',
+ items:[['01 / Activity books','Busy books & coding books for kids','Print at home'],['02 / Digital worksheets','Kids’ activities for phones & tablets','Coming soon'],['03 / Custom books & worksheets','Personalized storybooks & worksheets','Made for gifting · Coming soon'],['04 / Custom digital invitations','For birthdays & weddings','See an invitation example']],
+ studio:'About the studio', small:'It starts with', beginning:'everyday life.', first:'Keeping track of spending. Splitting a bill with friends. Playing with your children. Finding a gift for someone you love.', second:'Pika-Xu is the studio behind Sisa, BagiBill, and Kertas Kecil Project. We make apps and custom creations for everyday needs and special occasions.'
+};
+---
+<main id="main-content" tabindex="-1">
+  <section class="studio-entry" aria-labelledby="studio-title">
+    <div class="entry-caption"><p class="eyebrow">{c.eyebrow}</p><p class="edition">{c.edition}</p></div>
+    <h1 id="studio-title">{c.heading}<br/><span class="heading-accent">{c.accent}</span></h1>
+    <div class="entry-bottom"><p>{c.intro}</p><a href="#products" class="text-link">{c.find} <span aria-hidden="true">↓</span></a></div>
+  </section>
+  <section id="products" class="composition" data-composition aria-label={c.choose}>
+    <nav class="composition-index" aria-label={c.choose} data-choices>
+      <a id="choice-sisa" href="#sisa-note" data-choice="sisa"><span>01 / Sisa</span><strong>{c.sisa}</strong><span aria-hidden="true">−</span></a>
+      <a id="choice-bagibill" href="#bagibill-note" data-choice="bagibill"><span>02 / BagiBill</span><strong>{c.bill}</strong><span aria-hidden="true">÷</span></a>
+      <a id="choice-kertas" href="#kertas-note" data-choice="kertas"><span>03 / Kertas Kecil</span><strong>{c.kertas}</strong><span aria-hidden="true">+</span></a>
+    </nav>
+    <div class="composition-stage">
+      <section id="sisa-note" class="work-panel clarity-panel" data-panel="sisa" aria-labelledby="clarity-title">
+        <div class="panel-caption"><span class="eyebrow">{c.sisaTop}</span><span class="registration" aria-hidden="true">+ &nbsp; +</span></div>
+        <div class="clarity-composition"><h2 id="clarity-title" class="clarity-type">{c.less}<br/><em>{c.guess}</em></h2><div class="clarity-example"><p class="small-label">{c.try}</p><SisaExample demoId={product.demoId} locale={locale}/></div></div>
+        <div class="panel-exit"><p><strong>Sisa.</strong> {c.sisaSummary}</p><div class="action-row"><ActionLink id="sisa-demo" label={c.demo} locale={locale}/><a href={path('/sisa/')} class="text-link">{c.detail} <span aria-hidden="true">↗</span></a></div></div>
+      </section>
+      <section id="bagibill-note" class="work-panel share-panel" data-panel="bagibill" aria-labelledby="share-title">
+        <div class="panel-caption"><span class="eyebrow">{c.billTop}</span><span class="registration" aria-hidden="true">+ &nbsp; +</span></div>
+        <h2 id="share-title" class="share-type"><span>{c.good}</span><span class="share-second">{c.shared} <em>{c.billWord}</em></span></h2>
+        <div class="share-rule" aria-hidden="true"><span>{c.you}</span><span>{c.me}</span><span>{c.us}</span></div>
+        <div class="panel-exit"><p>{c.billSummary}</p><div class="action-row"><a class="button" href="https://bagibill.pika-xu.com/">{c.openBill} <span aria-hidden="true">↗</span></a><a class="text-link" href={path('/bagibill/')}>{c.aboutBill} <span aria-hidden="true">↗</span></a></div></div>
+      </section>
+      <section id="kertas-note" class="work-panel play-panel" data-panel="kertas" aria-labelledby="play-title">
+        <div class="panel-caption"><span class="eyebrow">{c.kertasTop}</span><span class="registration" aria-hidden="true">+ &nbsp; +</span></div>
+        <h2 id="play-title" class="play-type"><span>{c.what}</span><em>{c.if}</em></h2>
+        <div class="paper-paths">{c.items.map((item, i) => <a href={`${path('/kertas-kecil/')}#${['printable','interactive','custom','invitation'][i]}`}><span>{item[0]}</span><strong>{item[1]}</strong><small>{item[2]} ↗</small></a>)}</div>
+      </section>
+    </div>
+  </section>
+  <section id="studio" class="studio-colophon" aria-labelledby="colophon-title">
+    <p class="eyebrow">{c.studio}</p><h2 id="colophon-title">{c.small}<br/><em>{c.beginning}</em></h2>
+    <div class="colophon-copy"><p>{c.first}</p><p>{c.second}</p><p class="name-note">Products I Keep Adding — eXtremely Useful.</p></div>
+    <div class="studio-wordmark" aria-hidden="true">pika<span>—</span>xu<sup>+</sup></div>
+  </section>
+</main><SiteFooter locale={locale}/>
+<script>import '../scripts/modules/composition.js';</script>
