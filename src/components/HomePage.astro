@@ -1,4 +1,5 @@
 ---
+import TeamAvatar from './TeamAvatar.astro';
 import SiteFooter from './SiteFooter.astro';
 import ActionLink from './ActionLink.astro';
 import SisaExample from './SisaExample.astro';
@@ -14,7 +15,7 @@ const c = id ? {
  billTop:'BagiBill', good:'Kumpul bareng.', shared:'Bayar', billWord:'bareng.', you:'KAMU', me:'AKU', us:'KITA', billSummary:'Bagi tagihan bersama teman. Versi saat ini masih dikembangkan.', openBill:'Buka BagiBill', aboutBill:'Tentang BagiBill',
  kertasTop:'Kertas Kecil Project / bagian dari Pika-Xu', what:'Untuk', if:'Anda.',
  items:[['01 / Buku aktivitas','Busy book & coding book anak','Untuk dicetak'],['02 / Worksheet digital','Aktivitas anak di HP & tablet','Segera hadir'],['03 / Buku anak custom & worksheet','Buku cerita personal & worksheet','Hadiah sesuai keinginan · Segera hadir'],['04 / Undangan digital custom','Untuk ulang tahun & pernikahan','Lihat contoh undangan']],
- studio:'Tentang studio', small:'Berawal dari', beginning:'hal sehari-hari.', first:'Mengatur pengeluaran. Patungan bersama teman. Menemani anak bermain. Memberi hadiah untuk orang tersayang.', second:'Pika-Xu adalah studio di balik Sisa, BagiBill, dan Kertas Kecil Project. Kami membuat aplikasi dan karya personal untuk kebutuhan sehari-hari maupun momen istimewa.'
+ studio:'Tentang studio', small:'Berawal dari', beginning:'hal sehari-hari.', first:'Mengatur pengeluaran. Patungan bersama teman. Menemani anak bermain. Memberi hadiah untuk orang tersayang. Dari kebutuhan ini, Pika-Xu membuat aplikasi dan karya personal yang bisa Anda beli untuk keseharian atau hadiah.', second:'Kami adalah studio di balik Sisa, BagiBill, dan Kertas Kecil Project. Jelajahi produk kami: coba demo Sisa sebelum membeli, temukan buku aktivitas anak, atau lihat contoh undangan digital custom. Cek detail, ketersediaan, dan tautan pembelian di halaman produk. Produk dalam pengembangan ditandai dengan jelas.'
 } : {
  eyebrow:'Independent studio / made for everyday life', heading:'Make everyday', accent:'life easier.',
  find:'See our products',
@@ -23,7 +24,7 @@ const c = id ? {
  billTop:'BagiBill', good:'Good times.', shared:'Shared', billWord:'bill.', you:'YOU', me:'ME', us:'US', billSummary:'Share the bill with friends. The current version is still in development.', openBill:'Open BagiBill', aboutBill:'About BagiBill',
  kertasTop:'Kertas Kecil Project / part of Pika-Xu', what:'Made', if:'for you.',
  items:[['01 / Activity books','Busy books & coding books for kids','Print at home'],['02 / Digital worksheets','Kids’ activities for phones & tablets','Coming soon'],['03 / Custom children’s books & worksheets','Personalized storybooks & worksheets','Made for gifting · Coming soon'],['04 / Custom digital invitations','For birthdays & weddings','See an invitation example']],
- studio:'About the studio', small:'It starts with', beginning:'everyday life.', first:'Keeping track of spending. Splitting a bill with friends. Playing with your children. Finding a gift for someone you love.', second:'Pika-Xu is the studio behind Sisa, BagiBill, and Kertas Kecil Project. We make apps and custom creations for everyday needs and special occasions.'
+ studio:'About the studio', small:'It starts with', beginning:'everyday life.', first:'Keeping track of spending. Splitting a bill with friends. Playing with your children. Finding a gift for someone you love. These everyday needs inspire the apps and personal creations we sell at Pika-Xu, made for you to use, share with your family, or give as a gift.', second:'We are the studio behind Sisa, BagiBill, and Kertas Kecil Project. Explore our products: try the Sisa demo before buying, find activity books for children, or view a custom digital invitation example. Visit each product page to see what it includes, check availability, and find available purchase links. Products still in development are clearly marked.'
 };
 ---
 <main id="main-content" tabindex="-1">
@@ -60,7 +61,21 @@ const c = id ? {
   <section id="studio" class="studio-colophon" aria-labelledby="colophon-title">
     <p class="eyebrow">{c.studio}</p><h2 id="colophon-title">{c.small}<br/><em>{c.beginning}</em></h2>
     <div class="colophon-copy"><p>{c.first}</p><p>{c.second}</p><p class="name-note">Products I Keep Adding — eXtremely Useful.</p></div>
-    <details class="team-reveal"><summary>{id ? 'Kenalan dengan tim' : 'Meet the team'} <span aria-hidden="true">+</span></summary><ul class="team-list">{[['Chandra Gumelar','Founder','CG'],['Ivani Dewi','Cofounder','ID'],['Nasuha Ali','Cofounder','NA']].map(([name, role, initials]) => <li><span class="team-avatar" aria-hidden="true">{initials}</span><div><h3>{name}</h3><p>{role}</p></div></li>)}</ul></details>
+    <details class="team-reveal">
+      <summary>{id ? 'Kenalan dengan tim' : 'Meet the team'} <span aria-hidden="true">+</span></summary>
+      <ul class="team-list">
+        {[
+          ['Chandra Gumelar', 'Founder', 'chandragumelar', 'chandra'],
+          ['Ivani Dewi', 'Cofounder', 'ivanidewi', 'ivani'],
+          ['Nasuha Ali', 'Cofounder', 'nasuhaali', 'nasuha']
+        ].map(([name, role, profile, avatar]) => <li>
+          <a class="team-profile" href={`https://www.linkedin.com/in/${profile}/`} aria-label={`${name} — LinkedIn`}>
+            <span class="team-avatar"><TeamAvatar variant={avatar}/></span>
+            <div><h3>{name}</h3><p>{role}</p><span class="team-profile-label">LinkedIn ↗</span></div>
+          </a>
+        </li>)}
+      </ul>
+    </details>
     <div class="studio-wordmark" aria-hidden="true">pika<span>—</span>xu<sup>+</sup></div>
   </section>
 </main><SiteFooter locale={locale}/>

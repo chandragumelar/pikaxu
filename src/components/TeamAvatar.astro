@@ -1,0 +1,15 @@
+---
+const { variant } = Astro.props;
+// Decorative pixel faces, not photographic likenesses.
+const hair = variant === 'ivani' ? '#583b35' : variant === 'nasuha' ? '#362c32' : '#42222c';
+const skin = variant === 'ivani' ? '#e9b99a' : variant === 'nasuha' ? '#c98e6d' : '#dba581';
+---
+<svg viewBox="0 0 32 32" shape-rendering="crispEdges" aria-hidden="true" focusable="false">
+  <path fill={hair} d={variant === 'ivani' ? 'M9 5h14v3h3v19H6V8h3z' : 'M9 5h14v3h3v12H6V8h3z'}/>
+  <path fill={skin} d="M10 10h12v3h3v7h-3v4h-4v4h-4v-4h-4v-4H7v-7h3z"/>
+  <path fill={hair} d={variant === 'nasuha' ? 'M9 8h14v5h-3v-3H9z' : 'M9 8h14v3H12v3H9z'}/>
+  <path fill="#42222c" d="M11 15h2v2h-2zm8 0h2v2h-2z"/>
+  <path fill="#a25b50" d="M14 20h4v2h-4z"/>
+  {variant === 'chandra' && <path fill="none" stroke="#42222c" stroke-width="1" d="M9.5 14.5h5v4h-5zm8 0h5v4h-5zm-3 1h3"/>}
+  <path fill={variant === 'ivani' ? '#9b5262' : variant === 'nasuha' ? '#597568' : '#273ca8'} d="M10 26h4v2h4v-2h4v2h4v4H6v-4h4z"/>
+</svg>
