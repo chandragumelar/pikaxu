@@ -34,9 +34,9 @@ export const printableBooks = [
 ];
 
 export const kertasOfferings = [
-  { id: 'printable', title: 'Worksheet printable', state: 'inventory-review', price: null, action: null },
+  { id: 'printable', title: 'Buku worksheet', state: 'inventory-review', price: null, action: null },
   { id: 'interactive', title: 'Worksheet interaktif', state: 'planned', description: 'Untuk HP dan tablet. Produk belum dibuat.', price: null, action: null },
-  { id: 'custom-printable', title: 'Custom worksheet printable', state: 'concept', description: 'Gagasan layanan sudah ada; layanan belum dieksekusi.', price: null, action: null },
+  { id: 'custom-printable', title: 'Buku worksheet custom', state: 'concept', description: 'Gagasan layanan sudah ada; layanan belum dieksekusi.', price: null, action: null },
   { id: 'invitation', title: 'Custom digital invitation', state: 'past-work', description: 'Satu karya terdahulu tersedia. Penawaran layanan berulang belum dibentuk.', price: null, action: { label: 'Buka karya Berry', href: 'https://berryisthree.pika-xu.com/' } },
 ];
 
@@ -57,10 +57,10 @@ export const invitationExamples = [
 export const customCollections = [
   {
     id: 'worksheets', state: 'coming-soon', action: null,
-    title: { id: 'Worksheet Printable Custom', en: 'Custom Printable Worksheets' },
+    title: { id: 'Buku Worksheet Custom', en: 'Custom Worksheet Books' },
     description: {
-      id: 'Lembar aktivitas cetak sesuai ide Anda. Jadikan pelengkap pesta ulang tahun atau hadiah aktivitas untuk anak.',
-      en: 'Printable activity sheets made around your idea, for a birthday party or an activity gift for a child.',
+      id: 'Buku worksheet dengan nama anak dan tema pilihan Anda. Aktivitas disesuaikan dengan usia anak, untuk belajar sambil bermain atau hadiah ulang tahun.',
+      en: 'Worksheet books with your child’s name and chosen theme. Activities matched to their age, for playful learning or a birthday gift.',
     },
   },
   {

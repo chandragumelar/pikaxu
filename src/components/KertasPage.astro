@@ -14,13 +14,12 @@ const returnPath = localizedPath('/', locale);
   <div class="sheet-running"><a href={returnPath}>Pika-Xu / 03</a><span class="eyebrow">Kertas Kecil Project</span></div>
   <header class="kertas-heading">
     <p class="eyebrow">{t('Untuk bermain, bercerita, dan merayakan.', 'For play, stories, and celebrations.')}</p>
-    <h1>{t('Dari selembar,', 'A page can be')}<br/><em>{t('mulai cerita.', 'a beginning.')}</em></h1>
+    <h1>{t('Buku kecil,', 'Little books,')}<br/><em>{t('ide besar.', 'big ideas.')}</em></h1>
     <p>{t('Buku aktivitas, lembar digital, karya personal, dan undangan. Buka lipatannya untuk mengenal masing-masing.', 'Activity books, digital worksheets, personalized creations, and invitations. Open a fold to meet each one.')}</p>
-    <span class="fold-corner" aria-hidden="true">kk<br/>p.</span>
   </header>
   <div class="folio" data-folio>
     <details class="folio-fold printable-fold" id="printable" open>
-      <summary><span class="fold-number">01</span><span class="fold-name">{t('Worksheet', 'Printable')} <em>{t('Printable', 'Worksheets')}</em><small>{t('Buku aktivitas anak · usia 2–5 tahun', 'Children’s activity books · ages 2–5')}</small></span><span class="fold-sign" aria-hidden="true">+</span></summary>
+      <summary><span class="fold-number">01</span><span class="fold-name">{t('Buku', 'Activity')} <em>{t('Worksheet', 'Books')}</em><small>{t('Buku aktivitas anak · usia 2–5 tahun', 'Children’s activity books · ages 2–5')}</small></span><span class="fold-sign" aria-hidden="true">+</span></summary>
       <div class="fold-content">
         <p class="folio-intro">{t('Selembar di meja.', 'A page on the table.')}<br/>{t('Waktu bermain bersama.', 'Time to play together.')}</p>
         <div class="book-families">
@@ -35,7 +34,7 @@ const returnPath = localizedPath('/', locale);
             <p>{t(`Buku aktivitas cetak untuk mengenal gagasan awal coding tanpa layar, bagi anak usia ${codingCollection.ageRange} tahun.`, `Printable activity books introducing early coding ideas without a screen, for ages ${codingCollection.ageRange}.`)}</p>
             <span class="state-stamp">{t('Segera hadir', 'Coming soon')}</span>
             {codingCollection.action && <a class="book-access" href={codingCollection.action.href}>{actionLabel(codingCollection.action)}</a>}
-            <span class="coding-symbol" aria-hidden="true">{'{ }'}</span>
+            <svg class="coding-path" viewBox="0 0 180 80" fill="none" aria-hidden="true"><path d="M20 55H65V25H115V55H160" stroke="currentColor" stroke-width="3" stroke-dasharray="5 5"/><circle cx="20" cy="55" r="10" fill="currentColor"/><rect x="55" y="15" width="20" height="20" rx="4" fill="currentColor"/><path d="m115 12 13 13-13 13-13-13Z" fill="currentColor"/><circle cx="160" cy="55" r="12" stroke="currentColor" stroke-width="3"/></svg>
           </section>
         </div>
       </div>
@@ -45,8 +44,8 @@ const returnPath = localizedPath('/', locale);
       <div class="fold-content quiet-fold"><h2>{t('Halaman kecil,', 'A little page,')}<br/><em>{t('sentuhan baru.', 'a new touch.')}</em></h2><div><p>{t('Lembar aktivitas anak bergaya busy book dan coding book, langsung di HP atau tablet. Anak bermain melalui sentuhan layar, tanpa perlu mencetak halaman.', 'Busy book and coding book style activities for children, on a phone or tablet. Play by touching the screen, with no pages to print.')}</p><span class="state-stamp">{t('Segera hadir', 'Coming soon')}</span>{interactive.action && <a class="button" href={interactive.action.href}>{actionLabel(interactive.action)}</a>}</div></div>
     </details>
     <details class="folio-fold custom-fold" id="custom">
-      <summary><span class="fold-number">03</span><span class="fold-name">{t('Buku & Worksheet', 'Custom Books &')} <em>{t('Custom', 'Worksheets')}</em><small>{t('Worksheet custom & buku cerita personal · segera hadir', 'Custom worksheets & personalized storybooks · coming soon')}</small></span><span class="fold-sign" aria-hidden="true">+</span></summary>
-      <div class="fold-content custom-possibility"><span class="eyebrow">{t('Ide Anda, cerita Anda.', 'Your idea, your story.')}</span><h2>{t('Ada bagian', 'A little more')}<br/><span class="empty-line" aria-hidden="true"></span><em>{t('dari Anda.', 'like you.')}</em></h2>
+      <summary><span class="fold-number">03</span><span class="fold-name">{t('Buku Anak Custom', 'Custom Children’s Books')} <em>{t('& Worksheet', '& Worksheets')}</em><small>{t('Worksheet custom & buku cerita personal · segera hadir', 'Custom worksheets & personalized storybooks · coming soon')}</small></span><span class="fold-sign" aria-hidden="true">+</span></summary>
+      <div class="fold-content custom-possibility"><span class="eyebrow">{t('Dibuat sesuai pilihan Anda.', 'Made around your choices.')}</span><h2>{t('Nama anak Anda,', 'Their name,')}<br/><em>{t('di buku mereka.', 'their own book.')}</em></h2>
         {customCollections.map(collection => <section aria-labelledby={`custom-${collection.id}`}><h3 id={`custom-${collection.id}`}>{collection.title[language]}</h3><p>{collection.description[language]}</p><span class="state-stamp">{t('Segera hadir', 'Coming soon')}</span>{collection.action && <a class="button" href={collection.action.href}>{actionLabel(collection.action)}</a>}</section>)}
       </div>
     </details>

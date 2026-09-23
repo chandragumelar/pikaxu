@@ -6,11 +6,11 @@ const { demoId, locale = 'id' } = Astro.props;
 const demo = getDemo(demoId);
 const copy = exampleCopy[locale];
 ---
-<div class="example" data-example data-locale={locale} data-initial={demo.initialAmount} data-expense={demo.expenseAmount}>
+<div class="example" data-example data-locale={locale} data-initial={demo.initialAmount} data-expense={demo.expenseAmount} data-coffee="18000">
   <p class="eyebrow example-heading">{copy.heading}</p><p class="amount" data-amount>{formatAmount(demo.initialAmount)}</p>
   <div class="example-gauge" aria-hidden="true"><span class="example-fill" data-fill></span></div>
   <p class="example-state" data-state>{copy.before}</p>
-  <div class="example-controls" data-controls hidden><button type="button" data-spend>{copy.spend} · {formatAmount(demo.expenseAmount)}</button><button type="button" data-reset>{copy.reset}</button></div>
+  <div class="example-controls" data-controls hidden><button type="button" data-spend>{copy.spend} · {formatAmount(demo.expenseAmount)}</button><button type="button" data-coffee-spend>{copy.coffee} · {formatAmount(18000)}</button><button type="button" data-reset>{copy.reset}</button></div>
   <p class="example-disclosure">{copy.disclosure}</p><p class="example-fallback" data-fallback>{copy.fallback}</p><p class="example-status" data-status role="status" aria-live="polite" aria-atomic="true"></p>
 </div>
 <script>import '../scripts/modules/sisa-example.js';</script>
