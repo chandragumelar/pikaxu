@@ -29,11 +29,11 @@ const otherLocale = locale === 'id' ? 'en' : 'id';
   </head>
   <body id="top">
     <a class="skip-link" href="#main-content">{locale === 'id' ? 'Lewati ke konten' : 'Skip to content'}</a>
-    {preview && <p class="preview-label">{locale === 'id' ? 'PREVIEW LOKAL · BELUM LAYAK RILIS' : 'LOCAL PREVIEW · WORK IN PROGRESS'}</p>}
     <header class="site-header"><a class="brand" href={home} aria-label={locale === 'id' ? 'Beranda Pika-Xu' : 'Pika-Xu home'}>pika<span aria-hidden="true">—</span>xu<span class="brand-dot" aria-hidden="true">+</span></a><nav class="site-nav" aria-label={locale === 'id' ? 'Navigasi utama' : 'Main navigation'}><a href={localizedPath('/sisa/', locale)}>Sisa</a><a href={localizedPath('/bagibill/', locale)}>BagiBill</a><a href={localizedPath('/kertas-kecil/', locale)}>Kertas Kecil</a><a href={`${home}#studio`}>Studio</a></nav><a class="language-switch" href={localizedPath(path, otherLocale)} lang={otherLocale} hreflang={otherLocale} aria-label={locale === 'id' ? 'Read this page in English' : 'Baca halaman ini dalam Bahasa Indonesia'}>{locale === 'id' ? 'English' : 'Indonesia'}</a></header>
 
     <slot />
     <script>
+      import '../scripts/modules/type-motion.js';
       // Preserve the current section when changing language; navigation stays native.
       document.querySelectorAll('.language-switch').forEach(link => {
         link.addEventListener('click', () => {
